@@ -6,6 +6,10 @@ public class Menu {
     public String main(){
         return askQuestion("[1] Create character | [2] Load character | [q] Quit");
     }
+
+    public String askMethodOfCreationForCharacter(){
+        return askQuestion("[1] Choose name and class | [2] Random class | [3] Random name | [4] All Random | [q] Quit");
+    }
     public String askClass() {
         return askQuestion("[1] Warrior |[2] Magician |[q] Quit");
     }
@@ -33,5 +37,13 @@ public class Menu {
 
     public String modifyCharacter(){
         return askQuestion("What do you want to modify ? | [1] class | [2] name | [3] Both | [q] Quit");
+    }
+
+    public String askCharacterGenre(){
+        return askQuestion("[0] Male | [1] Female | [q] Quit");
+    }
+
+    public String playAgain(){
+        return askQuestion("[1] Play Again |[2] Quit");
     }
 }
