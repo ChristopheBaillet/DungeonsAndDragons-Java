@@ -8,14 +8,14 @@ public class Menu {
     }
 
     public String askMethodOfCreationForCharacter(){
-        return askQuestion("[1] Choose name and class | [2] Random class | [3] Random name | [4] All Random | [q] Quit");
+        return askQuestion("[1] Choose for each | [r] All Random | [q] Quit");
     }
     public String askClass() {
-        return askQuestion("[1] Warrior |[2] Magician |[q] Quit");
+        return askQuestion("[1] Warrior |[2] Magician |[r] Randomize |[q] Quit");
     }
 
     public String askCharacterName() {
-        return askQuestion("What is the name of you character ? | [q] Quit");
+        return askQuestion("What is the name of you character ? |[r] Randomize | [q] Quit");
     }
 
     public String askValidationOfCharacter(){
@@ -27,7 +27,7 @@ public class Menu {
     }
     public void showCharacterNameAndClass(Personnage character){
         System.out.println("Here is your character :");
-        System.out.println("class :" + character.getClasse() + " | name :" + character.getName());
+        System.out.println("class :" + character.getClasse() + " | name :" + character.getName() + " | genre :"+ character.getGenre());
     }
 
     private String askQuestion(String question){
@@ -40,10 +40,14 @@ public class Menu {
     }
 
     public String askCharacterGenre(){
-        return askQuestion("[0] Male | [1] Female | [q] Quit");
+        return askQuestion("[1] Male | [2] Female |[r] Randomize | [q] Quit");
     }
 
-    public String playAgain(){
+    public String askToPlayAgain(){
         return askQuestion("[1] Play Again |[2] Quit");
+    }
+
+    public String askToStartGame(){
+        return askQuestion("press enter to start the game");
     }
 }

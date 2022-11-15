@@ -6,8 +6,10 @@ public class Personnage {
     private OffensiveStuff offensiveStuff;
     private DefensiveStuff defensiveStuff;
 
-    private final Random rand = new Random();
+    private String genre;
+    private int position;
 
+    private final Random rand = new Random();
     private final String[] namesMale = {
             "Tebald", "Wy", "Hutch", "Hamelot", "Wilkie", "Jem", "Rainerus", "Samson", "Sanses", "Tommie",
             "Victor", "Vicar", "Tybost", "Jarvis", "Hugues", "Ancelm", "Tomasin", "Jacques", "Brock"
@@ -42,75 +44,82 @@ public class Personnage {
             new DefensiveStuff("Manteau mystérieux", "Robe", 3)
     };
     public Personnage() {
+        this.genre = chooseRandomGenre();
         chooseRandomClass();
-        chooseRandomName(rand.nextInt(2));
+        this.name = chooseRandomName(this.genre);
     }
-
-    public Personnage(String name) {
+    public Personnage(String name, String genre) {
         chooseRandomClass();
+        this.genre = genre;
         this.name = name;
     }
 
-    public Personnage(String classe, String name) {
-        if (classe.equals("Warrior")) {
-            this.HP = 10;
-            this.attackPower = 10;
-            this.defensiveStuff = warriorDefensiveStuff[rand.nextInt(warriorDefensiveStuff.length)];
-            this.offensiveStuff = warriorOffensiveStuff[rand.nextInt(warriorOffensiveStuff.length)];
-        } else {
-            this.HP = 6;
-            this.attackPower = 15;
-            this.defensiveStuff = magicianDefensiveStuff[rand.nextInt(magicianDefensiveStuff.length)];
-            this.offensiveStuff = magicianOffensiveStuff[rand.nextInt(magicianOffensiveStuff.length)];
+    public Personnage(String classe, String name, String genre) {
+        switch (classe){
+            case "Warrior" -> {
+                this.HP = 10;
+                this.attackPower = 10;
+                this.defensiveStuff = warriorDefensiveStuff[rand.nextInt(warriorDefensiveStuff.length)];
+                this.offensiveStuff = warriorOffensiveStuff[rand.nextInt(warriorOffensiveStuff.length)];
+            }
+            case "Magician" -> {
+                this.HP = 6;
+                this.attackPower = 15;
+                this.defensiveStuff = magicianDefensiveStuff[rand.nextInt(magicianDefensiveStuff.length)];
+                this.offensiveStuff = magicianOffensiveStuff[rand.nextInt(magicianOffensiveStuff.length)];
+            }
         }
         this.classe = classe;
+        this.genre = genre;
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "Personnage : {\n" +
-                "\tclasse = " + classe + "\n" +
-                "\tname = " + name + "\n" +
-                "\tHP = " + HP + "\n" +
-                "\tattackPower =" + attackPower + "\n" +
-                "\tstuff =\t" + defensiveStuff + "\n\t\t\t" + offensiveStuff + "\n" +
+        return "Personnage { " +
+                "classe = " + classe + "\n" +
+                "name = " + name + "\n" +
+                "HP = " + HP + "\n"+
+                "attackPower = " + attackPower +"\n"+
+                offensiveStuff +"\n"+
+                defensiveStuff +"\n"+
+                "genre = " + genre + "\n"+
                 '}';
     }
 
+    private String chooseRandomGenre() {
+        return Utilitaire.randomBetweenTwoStrings("Male","Female");
+    }
     private void chooseRandomClass(){
-        int randClass = rand.nextInt(2);
+        String randClass = Utilitaire.randomBetweenTwoStrings("Warrior", "Magician");
         switch (randClass) {
-            case 0 -> {
+            case "Warrior" -> {
                 this.HP = 10;
                 this.attackPower = 10;
                 this.defensiveStuff = warriorDefensiveStuff[rand.nextInt(warriorDefensiveStuff.length)];
                 this.offensiveStuff = warriorOffensiveStuff[rand.nextInt(warriorOffensiveStuff.length)];
-                this.classe = "Warrior";
             }
-            case 1 -> {
+            case "Magician" -> {
                 this.HP = 6;
                 this.attackPower = 15;
                 this.defensiveStuff = magicianDefensiveStuff[rand.nextInt(magicianDefensiveStuff.length)];
                 this.offensiveStuff = magicianOffensiveStuff[rand.nextInt(magicianOffensiveStuff.length)];
-                this.classe = "Magician";
             }
         }
+        this.classe = randClass;
     }
 
-
-    public void chooseRandomName(int randGenre){
-        int randName;
-        switch (randGenre) {
-            case 0 -> {
-                randName = rand.nextInt(this.namesMale.length);
-                this.name = namesMale[randName];
+    public String chooseRandomName(String genre){
+        String name = "";
+        switch (genre) {
+            case "Male" -> {
+                name = namesMale[rand.nextInt(this.namesMale.length)];
             }
-            case 1 -> {
-                randName = rand.nextInt(this.namesFemale.length);
-                this.name = namesFemale[randName];
+            case "Female" -> {
+                name = namesFemale[rand.nextInt(this.namesFemale.length)];
             }
         }
+        return name;
     }
 
     public int getHP() {
@@ -129,7 +138,6 @@ public class Personnage {
         return name;
     }
 
-
     public void setHP(int HP) {
         this.HP = HP;
     }
@@ -146,7 +154,6 @@ public class Personnage {
         this.name = name;
     }
 
-
     public OffensiveStuff getOffensiveStuff() {
         return offensiveStuff;
     }
@@ -159,7 +166,13 @@ public class Personnage {
         return defensiveStuff;
     }
 
-    public void setDefensiveStuff(DefensiveStuff defensiveStuff) {
-        this.defensiveStuff = defensiveStuff;
-    }
+    public void setDefensiveStuff(DefensiveStuff defensiveStuff) { this.defensiveStuff = defensiveStuff; }
+    public int getPosition() { return position; }
+
+    public void setPosition(int position) { this.position = position; }
+
+    public String getGenre() { return genre; }
+
+    public void setGenre(String genre) { this.genre = genre; }
+
 }
