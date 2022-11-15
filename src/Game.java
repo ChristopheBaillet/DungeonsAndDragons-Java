@@ -124,6 +124,7 @@ public class Game {
     private void playGame() {
         System.out.println("press enter to start the game");
         board.initialize();
+        board.printArray(board.getCases());
         while (!board.getStatus().equals("finished")) {
             String userInput = scanner.nextLine();
             switch (userInput) {

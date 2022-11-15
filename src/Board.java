@@ -4,7 +4,6 @@ public class Board {
     private final Random random = new Random();
     private int playerPosition;
     private final int[] cases = new int[64];
-
     public Board(){
         for (int i = 0; i < this.cases.length ; i++){
             this.cases[i] = i + 1;
@@ -12,7 +11,7 @@ public class Board {
     }
 
 
-    private void printArray(int[] array){
+    public void printArray(int[] array){
         for (int j : array) {
             if (j == this.playerPosition){
                 System.out.print("|***");
@@ -50,5 +49,8 @@ public class Board {
 
     public String getStatus() {
         return status;
+    }
+    public int[] getCases() {
+        return cases;
     }
 }
