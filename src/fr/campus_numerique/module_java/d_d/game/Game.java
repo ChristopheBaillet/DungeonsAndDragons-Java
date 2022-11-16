@@ -6,6 +6,7 @@ import fr.campus_numerique.module_java.d_d.character.type.Magician;
 import fr.campus_numerique.module_java.d_d.character.Personnage;
 import fr.campus_numerique.module_java.d_d.character.type.Warrior;
 import fr.campus_numerique.module_java.d_d.game.exception.CharacterOutsideOfBoardException;
+import fr.campus_numerique.module_java.d_d.menu.Menu;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -167,7 +168,7 @@ public class Game {
                                 playATurn(character);
                             }
                             catch (CharacterOutsideOfBoardException e){
-                                System.out.println("Character is outside of the board");
+                                System.out.println(e);
                                 playAgain();
                             }
                         }

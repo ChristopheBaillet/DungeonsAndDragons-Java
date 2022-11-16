@@ -1,4 +1,4 @@
-package fr.campus_numerique.module_java.d_d.game;
+package fr.campus_numerique.module_java.d_d.menu;
 
 import fr.campus_numerique.module_java.d_d.character.Personnage;
 
