@@ -23,7 +23,7 @@ public class Menu {
     }
 
     public String askValidationOfCharacter(){
-        return askQuestion("[1] validate | [2] modify | [q] Quit");
+        return askQuestion("[1] Validate | [2] Modify | [q] Quit");
     }
 
     public void showCharacterInfos(Personnage character) {
@@ -39,7 +39,7 @@ public class Menu {
     }
 
     public String modifyCharacter(){
-        return askQuestion("What do you want to modify ? | [1] class | [2] name | [3] Both | [q] Quit");
+        return askQuestion("What do you want to modify ? | [1] Class | [2] Name | [3] Genre | [4] All | [q] Quit");
     }
 
     public String askCharacterGenre(){
@@ -51,6 +51,6 @@ public class Menu {
     }
 
     public String askToStartGame(){
-        return askQuestion("press enter to start the game");
+        return askQuestion("Press enter to start the game.");
     }
 }

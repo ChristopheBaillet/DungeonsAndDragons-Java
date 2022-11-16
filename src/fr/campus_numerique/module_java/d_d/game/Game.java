@@ -40,17 +40,11 @@ public class Game {
         String methodOfCreationForCharacter = menu.askMethodOfCreationForCharacter();
         switch (methodOfCreationForCharacter){
             case "1" ->{
-                String genre = defineCharacterGenre(menu.askCharacterGenre());
-                String classe = defineCharacterClass(menu.askClass());
-                String name = defineName(genre);
-                switch (classe){
-                    case "Warrior" -> {
-                        return new Warrior(name,genre);
-                    }
-                    case "Magician" -> {
-                        return new Magician(name,genre);
-                    }
-                }
+                Personnage character = defineCharacterClass();
+                String genre = defineCharacterGenre();
+                character.setGenre(genre);
+                character.setName(defineName(genre));
+                return character;
             }
             case "r" -> {
                 return createRandomCharacter();
@@ -77,21 +71,42 @@ public class Game {
         }
         return character;
     }
+
+    private Personnage defineCharacterClassWithNameAndGenre(String name, String genre){
+        Personnage classe = null;
+        switch (menu.askClass()){
+            case "1" -> classe = new Warrior(name,genre);
+            case "2" -> classe = new Magician(name,genre);
+            case "r" -> classe = defineRandomClassWithNameAndGenre(name,genre);
+            case "q" -> exit();
+            default -> defineCharacterClassWithNameAndGenre(name,genre);
+        }
+        return classe;
+    }
+
+    private Personnage defineRandomClassWithNameAndGenre(String name, String genre) {
+        switch (Utilitaire.randomBetweenTwoStrings("Warrior", "Magician")){
+            case "Warrior" -> {
+                return new Warrior(name,genre);
+            }
+            case ("Magician") -> {
+                return new Magician(name,genre);
+            }
+        }
+        return null;
+    }
+
     private Personnage modify(Personnage character) {
         String userInput = menu.modifyCharacter();
         switch (userInput) {
-            //case "1" -> character.setClasse(defineCharacterClass(menu.askClass()));
+            case "1" -> character = defineCharacterClassWithNameAndGenre(character.getName(), character.getGenre());
             case "2" -> character.setName(defineName(character.getGenre()));
-            case "3" -> setClassAndName(character);
+            case "3" -> character.setGenre(defineCharacterGenre());
+            case "4" -> createCharacter();
             case "q" -> exit();
             default -> modify(character);
         }
         return character;
-    }
-
-    private void setClassAndName(Personnage character) {
-       // character.setClasse(defineCharacterClass(menu.askClass()));
-        character.setName(defineName(character.getGenre()));
     }
 
     private String defineName(String genre){
@@ -104,13 +119,14 @@ public class Game {
         }
         return name;
     }
-    private String defineCharacterClass(String classe){
-        switch (classe){
-            case "1" -> classe = "Warrior";
-            case "2" -> classe = "Magician";
+    private Personnage defineCharacterClass(){
+        Personnage classe = null;
+        switch (menu.askClass()){
+            case "1" -> classe = new Warrior();
+            case "2" -> classe = new Magician();
             case "r" -> classe = defineRandomClass();
             case "q" -> exit();
-            default -> defineCharacterClass(menu.askClass());
+            default -> defineCharacterClass();
         }
         return classe;
     }
@@ -119,30 +135,21 @@ public class Game {
     }
 
 
-    private String defineCharacterGenre(String genre){
-        switch (genre){
+    private String defineCharacterGenre(){
+        String genre = "";
+        switch (menu.askCharacterGenre()){
             case "1" -> genre = "Male";
             case "2" -> genre = "Female";
             case "r" -> genre = defineRandomGenre();
             case "q" -> exit();
-            default -> defineCharacterGenre(menu.askCharacterGenre());
+            default -> defineCharacterGenre();
         }
         return genre;
     }
-
-
     private Personnage createRandomCharacter() {
         String genre = defineRandomGenre();
         String name = defineRandomName(genre);
-        switch (defineRandomClass()){
-            case "Warrior" -> {
-                return new Warrior(name, genre);
-            }
-            case "Magician" -> {
-                return new Magician(name, genre);
-            }
-        }
-      return null;
+        return defineRandomClassWithNameAndGenre(name,genre);
     }
 
     private void playAgain() {
@@ -213,7 +220,15 @@ public class Game {
         return Utilitaire.randomBetweenTwoStrings("Male", "Female");
     }
 
-    private String defineRandomClass(){
-        return Utilitaire.randomBetweenTwoStrings("Warrior", "Magician");
+    private Personnage defineRandomClass(){
+        switch (Utilitaire.randomBetweenTwoStrings("Warrior", "Magician")){
+            case "Warrior" -> {
+                return new Warrior();
+            }
+            case ("Magician") -> {
+                return new Magician();
+            }
+        }
+        return null;
     }
 }

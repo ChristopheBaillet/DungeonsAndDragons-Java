@@ -19,6 +19,9 @@ import fr.campus_numerique.module_java.d_d.character.stuff.offensive.OffensiveSt
             "Magdalene", "Madeleine", "Sallie", "Linyive", "Macie", "Richmal", "Sully", "Jeene", "Lillian", "Eliza"
     };
 
+    public Personnage(){
+
+    }
     public Personnage(String name, String genre) {
         this.genre = genre;
         this.name = name;
