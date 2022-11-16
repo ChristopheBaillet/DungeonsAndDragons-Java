@@ -4,17 +4,11 @@ import fr.campus_numerique.module_java.d_d.Utilitaire;
 import fr.campus_numerique.module_java.d_d.character.stuff.defensive.DefensiveStuff;
 import fr.campus_numerique.module_java.d_d.character.stuff.offensive.OffensiveStuff;
 
-import java.util.Random;
-
  abstract public class Personnage {
-    protected String classe, name;
-    protected int HP, attackPower;
-    protected String genre;
-    protected int position;
+    protected String name,genre;
+    protected int HP, attackPower,position;
     protected OffensiveStuff offensiveStuff;
     protected DefensiveStuff defensiveStuff;
-
-    protected final Random rand = new Random();
     protected static final String[] namesMale = {
             "Tebald", "Wy", "Hutch", "Hamelot", "Wilkie", "Jem", "Rainerus", "Samson", "Sanses", "Tommie",
             "Victor", "Vicar", "Tybost", "Jarvis", "Hugues", "Ancelm", "Tomasin", "Jacques", "Brock"
@@ -25,27 +19,14 @@ import java.util.Random;
             "Magdalene", "Madeleine", "Sallie", "Linyive", "Macie", "Richmal", "Sully", "Jeene", "Lillian", "Eliza"
     };
 
-    public Personnage(String classe) {
-        this.classe = classe;
-        this.genre = chooseRandomGenre();
-        this.name = chooseRandomName(this.genre);
-    }
     public Personnage(String name, String genre) {
-        chooseRandomClass();
-        this.genre = genre;
-        this.name = name;
-    }
-
-    public Personnage(String classe, String name, String genre) {
-        this.classe = classe;
         this.genre = genre;
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "fr.campus_numerique.module_java.d_d.character.Personnage { " +
-                "classe = " + classe + "\n" +
+        return "Personnage { " +
                 "name = " + name + "\n" +
                 "genre = " + genre + "\n"+
                 "HP = " + HP + "\n"+
@@ -53,13 +34,6 @@ import java.util.Random;
                 offensiveStuff +"\n"+
                 defensiveStuff +"\n"+
                 '}';
-    }
-
-    static String chooseRandomGenre() {
-        return Utilitaire.randomBetweenTwoStrings("Male","Female");
-    }
-    static String chooseRandomClass(){
-        return Utilitaire.randomBetweenTwoStrings("fr.campus_numerique.module_java.d_d.character.type.Warrior", "fr.campus_numerique.module_java.d_d.character.type.Magician");
     }
 
     public static String chooseRandomName(String genre){
@@ -73,7 +47,7 @@ import java.util.Random;
             }
         }
         return name;
-    }
+    }abstract public String showNameGenreClass(Personnage character);
 
     public int getHP() {
         return HP;
@@ -81,10 +55,6 @@ import java.util.Random;
 
     public int getAttackPower() {
         return attackPower;
-    }
-
-    public String getClasse() {
-        return classe;
     }
 
     public String getName() {
@@ -97,10 +67,6 @@ import java.util.Random;
 
     public void setAttackPower(int attackPower) {
         this.attackPower = attackPower;
-    }
-
-    public void setClasse(String classe) {
-        this.classe = classe;
     }
 
     public void setName(String name) {

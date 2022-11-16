@@ -5,6 +5,7 @@ import fr.campus_numerique.module_java.d_d.board.Board;
 import fr.campus_numerique.module_java.d_d.character.type.Magician;
 import fr.campus_numerique.module_java.d_d.character.Personnage;
 import fr.campus_numerique.module_java.d_d.character.type.Warrior;
+import fr.campus_numerique.module_java.d_d.game.exception.CharacterOutsideOfBoardException;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -42,10 +43,10 @@ public class Game {
                 String classe = defineCharacterClass(menu.askClass());
                 String name = defineName(genre);
                 switch (classe){
-                    case "fr.campus_numerique.module_java.d_d.character.type.Warrior" -> {
+                    case "Warrior" -> {
                         return new Warrior(name,genre);
                     }
-                    case "fr.campus_numerique.module_java.d_d.character.type.Magician" -> {
+                    case "Magician" -> {
                         return new Magician(name,genre);
                     }
                 }
@@ -78,7 +79,7 @@ public class Game {
     private Personnage modify(Personnage character) {
         String userInput = menu.modifyCharacter();
         switch (userInput) {
-            case "1" -> character.setClasse(defineCharacterClass(menu.askClass()));
+            //case "1" -> character.setClasse(defineCharacterClass(menu.askClass()));
             case "2" -> character.setName(defineName(character.getGenre()));
             case "3" -> setClassAndName(character);
             case "q" -> exit();
@@ -88,7 +89,7 @@ public class Game {
     }
 
     private void setClassAndName(Personnage character) {
-        character.setClasse(defineCharacterClass(menu.askClass()));
+       // character.setClasse(defineCharacterClass(menu.askClass()));
         character.setName(defineName(character.getGenre()));
     }
 
@@ -104,11 +105,11 @@ public class Game {
     }
     private String defineCharacterClass(String classe){
         switch (classe){
-            case "1" -> classe = "fr.campus_numerique.module_java.d_d.character.type.Warrior";
-            case "2" -> classe = "fr.campus_numerique.module_java.d_d.character.type.Magician";
+            case "1" -> classe = "Warrior";
+            case "2" -> classe = "Magician";
             case "r" -> classe = defineRandomClass();
             case "q" -> exit();
-            default -> defineCharacterClass(menu.askCharacterName());
+            default -> defineCharacterClass(menu.askClass());
         }
         return classe;
     }
@@ -131,13 +132,12 @@ public class Game {
 
     private Personnage createRandomCharacter() {
         String genre = defineRandomGenre();
-        String classe = defineRandomClass();
         String name = defineRandomName(genre);
-        switch (classe){
-            case "fr.campus_numerique.module_java.d_d.character.type.Warrior" -> {
+        switch (defineRandomClass()){
+            case "Warrior" -> {
                 return new Warrior(name, genre);
             }
-            case "fr.campus_numerique.module_java.d_d.character.type.Magician" -> {
+            case "Magician" -> {
                 return new Magician(name, genre);
             }
         }
@@ -162,7 +162,15 @@ public class Game {
                 while (!board.getStatus().equals("finished")) {
                     String userInput = scanner.nextLine();
                     switch (userInput) {
-                        case "" -> playATurn(character);
+                        case "" -> {
+                            try {
+                                playATurn(character);
+                            }
+                            catch (CharacterOutsideOfBoardException e){
+                                System.out.println("Character is outside of the board");
+                                playAgain();
+                            }
+                        }
                         case "i" -> System.out.println(character);
                         case "q" -> exit();
                     }
@@ -179,14 +187,13 @@ public class Game {
         return new int[]{dice1, dice2};
     }
 
-    public void playATurn(Personnage character){
+    public void playATurn(Personnage character) throws CharacterOutsideOfBoardException {
         int[] roll = rollDices();
         int playerPosition = character.getPosition();
         int nbCases = board.getNbCases();
         playerPosition += roll[0] + roll[1];
         if (playerPosition > nbCases){
-            int diff = playerPosition - 64;
-            playerPosition = 64 - diff;
+            throw new CharacterOutsideOfBoardException();
         }
         character.setPosition(playerPosition);
         board.printArray(board.getCases(), character.getPosition());
@@ -206,6 +213,6 @@ public class Game {
     }
 
     private String defineRandomClass(){
-        return Utilitaire.randomBetweenTwoStrings("fr.campus_numerique.module_java.d_d.character.type.Warrior", "Female");
+        return Utilitaire.randomBetweenTwoStrings("Warrior", "Magician");
     }
 }

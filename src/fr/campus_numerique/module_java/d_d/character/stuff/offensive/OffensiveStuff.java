@@ -36,7 +36,7 @@ abstract public class OffensiveStuff {
 
     @Override
     public String toString() {
-        return "fr.campus_numerique.module_java.d_d.character.stuff.offensive.OffensiveStuff{" +
+        return "OffensiveStuff{" +
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", power=" + power +

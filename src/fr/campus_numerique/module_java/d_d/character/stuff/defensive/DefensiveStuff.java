@@ -11,7 +11,7 @@ abstract public class DefensiveStuff {
     }
     @Override
     public String toString() {
-        return "fr.campus_numerique.module_java.d_d.character.stuff.defensive.DefensiveStuff{" +
+        return "DefensiveStuff{" +
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", power=" + power +
