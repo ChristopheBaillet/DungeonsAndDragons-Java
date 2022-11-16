@@ -1,4 +1,6 @@
-public class OffensiveStuff {
+package fr.campus_numerique.module_java.d_d.character.stuff.offensive;
+
+abstract public class OffensiveStuff {
     private String name,type;
     private int power;
 
@@ -34,7 +36,7 @@ public class OffensiveStuff {
 
     @Override
     public String toString() {
-        return "OffensiveStuff{" +
+        return "fr.campus_numerique.module_java.d_d.character.stuff.offensive.OffensiveStuff{" +
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", power=" + power +

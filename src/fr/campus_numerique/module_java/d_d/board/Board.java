@@ -1,27 +1,31 @@
+package fr.campus_numerique.module_java.d_d.board;
+
+import fr.campus_numerique.module_java.d_d.character.Personnage;
+
 import java.util.Arrays;
 import java.util.Random;
 public class Board {
     private final int nbCases = 64;
     private String status;
     private final Random random = new Random();
-    private final Case[] cases = new Case[nbCases];
+    private final Box[] boxes = new Box[nbCases];
     public Board(){
-        for (int i = 0; i < this.cases.length ; i++){
-            this.cases[i] = new Case(i+1);
+        for (int i = 0; i < this.boxes.length ; i++){
+            this.boxes[i] = new Box(i+1);
         }
     }
 
     @Override
     public String toString() {
-        return "Board{" +
+        return "fr.campus_numerique.module_java.d_d.board.Board{" +
                 "status='" + status + '\'' +
                 ", random=" + random +
-                ", cases=" + Arrays.toString(cases) +
+                ", cases=" + Arrays.toString(boxes) +
                 '}';
     }
 
-    public void printArray(Case[] cases, int playerPosition){
-        for (Case c : cases) {
+    public void printArray(Box[] boxes, int playerPosition){
+        for (Box c : boxes) {
             if (c.getNumber() == playerPosition){
                 System.out.print("|***");
             }else {
@@ -59,8 +63,8 @@ public class Board {
     public String getStatus() {
         return status;
     }
-    public Case[] getCases() {
-        return cases;
+    public Box[] getCases() {
+        return boxes;
     }
 
     public void setStatus(String status) {

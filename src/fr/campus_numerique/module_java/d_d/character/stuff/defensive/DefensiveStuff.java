@@ -1,4 +1,6 @@
-public class DefensiveStuff {
+package fr.campus_numerique.module_java.d_d.character.stuff.defensive;
+
+abstract public class DefensiveStuff {
     private String name,type;
     private int power;
 
@@ -9,7 +11,7 @@ public class DefensiveStuff {
     }
     @Override
     public String toString() {
-        return "DefensiveStuff{" +
+        return "fr.campus_numerique.module_java.d_d.character.stuff.defensive.DefensiveStuff{" +
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", power=" + power +

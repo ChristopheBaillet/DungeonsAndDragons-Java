@@ -1,6 +1,8 @@
-public class Case {
+package fr.campus_numerique.module_java.d_d.board;
+
+public class Box {
     private int number;
-    public Case(int number) {
+    public Box(int number) {
         this.number = number;
     }
     public int getNumber() {

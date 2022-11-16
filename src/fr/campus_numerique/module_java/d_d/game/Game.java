@@ -1,3 +1,11 @@
+package fr.campus_numerique.module_java.d_d.game;
+
+import fr.campus_numerique.module_java.d_d.Utilitaire;
+import fr.campus_numerique.module_java.d_d.board.Board;
+import fr.campus_numerique.module_java.d_d.character.type.Magician;
+import fr.campus_numerique.module_java.d_d.character.Personnage;
+import fr.campus_numerique.module_java.d_d.character.type.Warrior;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -19,7 +27,7 @@ public class Game {
     }
 
     private Personnage loadCharacter() {
-        return new Personnage();
+        return createRandomCharacter();
     }
 
     private Personnage createCharacter() {
@@ -33,7 +41,14 @@ public class Game {
                 String genre = defineCharacterGenre(menu.askCharacterGenre());
                 String classe = defineCharacterClass(menu.askClass());
                 String name = defineName(genre);
-                return new Personnage(classe, name, genre);
+                switch (classe){
+                    case "fr.campus_numerique.module_java.d_d.character.type.Warrior" -> {
+                        return new Warrior(name,genre);
+                    }
+                    case "fr.campus_numerique.module_java.d_d.character.type.Magician" -> {
+                        return new Magician(name,genre);
+                    }
+                }
             }
             case "r" -> {
                 return createRandomCharacter();
@@ -89,9 +104,9 @@ public class Game {
     }
     private String defineCharacterClass(String classe){
         switch (classe){
-            case "1" -> classe = "Warrior";
-            case "2" -> classe = "Magician";
-            case "r" -> classe = Utilitaire.randomBetweenTwoStrings("Warrior", "Magician");
+            case "1" -> classe = "fr.campus_numerique.module_java.d_d.character.type.Warrior";
+            case "2" -> classe = "fr.campus_numerique.module_java.d_d.character.type.Magician";
+            case "r" -> classe = defineRandomClass();
             case "q" -> exit();
             default -> defineCharacterClass(menu.askCharacterName());
         }
@@ -101,15 +116,12 @@ public class Game {
         return name;
     }
 
-    private String defineRandomName(String genre){
-        Personnage p = new Personnage();
-        return p.chooseRandomName(genre);
-    }
+
     private String defineCharacterGenre(String genre){
         switch (genre){
             case "1" -> genre = "Male";
             case "2" -> genre = "Female";
-            case "r" -> genre = Utilitaire.randomBetweenTwoStrings("Male", "Female");
+            case "r" -> genre = defineRandomGenre();
             case "q" -> exit();
             default -> defineCharacterGenre(menu.askCharacterGenre());
         }
@@ -118,10 +130,19 @@ public class Game {
 
 
     private Personnage createRandomCharacter() {
-        return new Personnage();
+        String genre = defineRandomGenre();
+        String classe = defineRandomClass();
+        String name = defineRandomName(genre);
+        switch (classe){
+            case "fr.campus_numerique.module_java.d_d.character.type.Warrior" -> {
+                return new Warrior(name, genre);
+            }
+            case "fr.campus_numerique.module_java.d_d.character.type.Magician" -> {
+                return new Magician(name, genre);
+            }
+        }
+      return null;
     }
-
-
 
     private void playAgain() {
         String playerInput = menu.askToPlayAgain();
@@ -174,5 +195,17 @@ public class Game {
             System.out.println("finished "+ playerPosition);
         }
         System.out.println(playerPosition);
+    }
+
+    private String defineRandomName(String genre){
+        return Personnage.chooseRandomName(genre);
+    }
+
+    private String defineRandomGenre(){
+        return Utilitaire.randomBetweenTwoStrings("Male", "Female");
+    }
+
+    private String defineRandomClass(){
+        return Utilitaire.randomBetweenTwoStrings("fr.campus_numerique.module_java.d_d.character.type.Warrior", "Female");
     }
 }

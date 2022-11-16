@@ -1,3 +1,5 @@
+package fr.campus_numerique.module_java.d_d;
+
 import java.util.Random;
 
 public class Utilitaire {
@@ -18,6 +20,10 @@ public class Utilitaire {
             if (item.equals(strings[i])) return i;
         }
         return -1;
+    }
+
+    public static String getRandomStringFromArray(String[] array){
+        return array[random.nextInt(array.length)];
     }
 
 }

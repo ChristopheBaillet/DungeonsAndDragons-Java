@@ -1,3 +1,7 @@
+package fr.campus_numerique.module_java.d_d.game;
+
+import fr.campus_numerique.module_java.d_d.character.Personnage;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -11,7 +15,7 @@ public class Menu {
         return askQuestion("[1] Choose for each | [r] All Random | [q] Quit");
     }
     public String askClass() {
-        return askQuestion("[1] Warrior |[2] Magician |[r] Randomize |[q] Quit");
+        return askQuestion("[1] fr.campus_numerique.module_java.d_d.character.type.Warrior |[2] fr.campus_numerique.module_java.d_d.character.type.Magician |[r] Randomize |[q] Quit");
     }
 
     public String askCharacterName() {
