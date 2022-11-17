@@ -1,27 +1,14 @@
 package fr.campus_numerique.module_java.d_d;
 
-import java.util.Scanner;
-
 abstract public class Personnage {
-    protected String name,genre;
+    protected String name;
     protected int HP, attackPower,position;
     protected OffensiveStuff offensiveStuff;
     protected DefensiveStuff defensiveStuff;
-    protected static final String[] namesMale = {
-            "Tebald", "Wy", "Hutch", "Hamelot", "Wilkie", "Jem", "Rainerus", "Samson", "Sanses", "Tommie",
-            "Victor", "Vicar", "Tybost", "Jarvis", "Hugues", "Ancelm", "Tomasin", "Jacques", "Brock"
-    };
-
-    protected static final String[] namesFemale = {
-            "Nanette", "Crystina", "Lizbeth", "Emeline", "Besseta", "Tephania", "Tetty", "Farfelee",
-            "Magdalene", "Madeleine", "Sallie", "Linyive", "Macie", "Richmal", "Sully", "Jeene", "Lillian", "Eliza"
-    };
-
     public Personnage(){
 
     }
-    public Personnage(String name, String genre) {
-        this.genre = genre;
+    public Personnage(String name) {
         this.name = name;
     }
 
@@ -29,26 +16,12 @@ abstract public class Personnage {
     public String toString() {
         return "Personnage { " +
                 "name = " + name + "\n" +
-                "genre = " + genre + "\n"+
                 "HP = " + HP + "\n"+
                 "attackPower = " + attackPower +"\n"+
                 offensiveStuff +"\n"+
                 defensiveStuff +"\n"+
                 '}';
     }
-
-    public static String chooseRandomName(String genre){
-        String name = "";
-        switch (genre) {
-            case "Male" -> {
-                name = Utilitaire.getRandomStringFromArray(namesMale);
-            }
-            case "Female" -> {
-                name = Utilitaire.getRandomStringFromArray(namesFemale);
-            }
-        }
-        return name;
-    }abstract public String showNameGenreClass(Personnage character);
 
     public int getHP() {
         return HP;
@@ -90,10 +63,5 @@ abstract public class Personnage {
     public int getPosition() { return position; }
 
     public void setPosition(int position) { this.position = position; }
-
-    public String getGenre() { return genre; }
-
-    public void setGenre(String genre) { this.genre = genre; }
-
 
 }
