@@ -1,6 +1,4 @@
-package fr.campus_numerique.module_java.d_d.board;
-
-import fr.campus_numerique.module_java.d_d.character.Personnage;
+package fr.campus_numerique.module_java.d_d;
 
 import java.util.Arrays;
 public class Board {
@@ -15,7 +13,7 @@ public class Board {
 
     @Override
     public String toString() {
-        return "fr.campus_numerique.module_java.d_d.board.Board{" +
+        return "Board{" +
                 "status='" + status + '\'' +
                 ", cases=" + Arrays.toString(boxes) +
                 '}';

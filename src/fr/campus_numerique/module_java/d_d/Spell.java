@@ -1,4 +1,4 @@
-package fr.campus_numerique.module_java.d_d.character.stuff.offensive;
+package fr.campus_numerique.module_java.d_d;
 
 public class Spell extends OffensiveStuff{
     public Spell(String name, String type, int power) {

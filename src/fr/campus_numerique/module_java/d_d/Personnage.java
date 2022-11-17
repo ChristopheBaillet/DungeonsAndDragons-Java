@@ -1,10 +1,8 @@
-package fr.campus_numerique.module_java.d_d.character;
+package fr.campus_numerique.module_java.d_d;
 
-import fr.campus_numerique.module_java.d_d.Utilitaire;
-import fr.campus_numerique.module_java.d_d.character.stuff.defensive.DefensiveStuff;
-import fr.campus_numerique.module_java.d_d.character.stuff.offensive.OffensiveStuff;
+import java.util.Scanner;
 
- abstract public class Personnage {
+abstract public class Personnage {
     protected String name,genre;
     protected int HP, attackPower,position;
     protected OffensiveStuff offensiveStuff;
@@ -96,5 +94,6 @@ import fr.campus_numerique.module_java.d_d.character.stuff.offensive.OffensiveSt
     public String getGenre() { return genre; }
 
     public void setGenre(String genre) { this.genre = genre; }
+
 
 }

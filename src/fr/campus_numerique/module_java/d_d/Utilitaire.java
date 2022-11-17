@@ -3,6 +3,10 @@ package fr.campus_numerique.module_java.d_d;
 import java.util.Random;
 
 public class Utilitaire {
+    /**
+     * Test javadoc
+     *
+     */
     private static final Random random = new Random();
     public static String randomBetweenTwoStrings(String a, String b){
         switch (random.nextInt(2)){

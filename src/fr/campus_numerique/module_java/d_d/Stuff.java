@@ -1,4 +1,4 @@
-package fr.campus_numerique.module_java.d_d.character;
+package fr.campus_numerique.module_java.d_d;
 
 public class Stuff {
     private String offensive,defensive;

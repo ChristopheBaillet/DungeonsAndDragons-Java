@@ -1,4 +1,4 @@
-package fr.campus_numerique.module_java.d_d.character.stuff.defensive;
+package fr.campus_numerique.module_java.d_d;
 
 abstract public class DefensiveStuff {
     private String name,type;

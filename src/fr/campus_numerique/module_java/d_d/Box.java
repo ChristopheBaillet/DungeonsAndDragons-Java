@@ -1,4 +1,4 @@
-package fr.campus_numerique.module_java.d_d.board;
+package fr.campus_numerique.module_java.d_d;
 
 public class Box {
     private int number;

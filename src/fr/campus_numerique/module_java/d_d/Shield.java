@@ -1,4 +1,4 @@
-package fr.campus_numerique.module_java.d_d.character.stuff.defensive;
+package fr.campus_numerique.module_java.d_d;
 
 public class Shield extends DefensiveStuff{
     public Shield(String name, String type, int power) {
