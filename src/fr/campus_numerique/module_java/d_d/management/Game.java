@@ -142,6 +142,9 @@ public class Game {
         int nbCases = board.getNbCases();
         //playerPosition += roll[0] + roll[1];
         playerPosition++;
+        if ("1".equals(menu.askInteractWithItem(board.getBoxes().get(playerPosition)))) {
+            board.getBoxes().get(playerPosition).interact();
+        }
         if (playerPosition > nbCases) {
             throw new CharacterOutsideOfBoardException();
         }

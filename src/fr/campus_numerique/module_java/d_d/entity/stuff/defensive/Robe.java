@@ -9,4 +9,14 @@ public class Robe extends DefensiveStuff{
     public String toString(){
         return "Robe " + getName();
     }
+
+    @Override
+    public void interact() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
 }

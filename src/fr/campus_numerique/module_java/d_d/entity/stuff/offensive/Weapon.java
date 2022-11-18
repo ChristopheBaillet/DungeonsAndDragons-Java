@@ -1,8 +1,6 @@
 package fr.campus_numerique.module_java.d_d.entity.stuff.offensive;
 
-import fr.campus_numerique.module_java.d_d.entity.board.Case;
-
-public class Weapon extends OffensiveStuff implements Case {
+public class Weapon extends OffensiveStuff {
     public Weapon(String name, int power) {
         super(name, power);
     }
@@ -10,5 +8,15 @@ public class Weapon extends OffensiveStuff implements Case {
     @Override
     public String toString(){
         return "Weapon " + getName();
+    }
+
+    @Override
+    public void interact() {
+
+    }
+
+    @Override
+    public void delete() {
+
     }
 }

@@ -5,4 +5,14 @@ public class EmptyCase implements Case{
     public String toString(){
         return "Empty";
     }
+
+    @Override
+    public void interact() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
 }

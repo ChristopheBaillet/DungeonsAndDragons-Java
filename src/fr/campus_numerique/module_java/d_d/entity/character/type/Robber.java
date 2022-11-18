@@ -11,4 +11,14 @@ public class Robber extends Enemy {
     public String toString(){
         return "Robber " + getName();
     }
+
+    @Override
+    public void interact() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
 }

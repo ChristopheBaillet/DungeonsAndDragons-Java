@@ -11,4 +11,14 @@ public class Potion extends Item {
     public String toString(){
         return "Potion";
     }
+
+    @Override
+    public void interact() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
 }

@@ -9,4 +9,14 @@ public class Shield extends DefensiveStuff{
     public String toString(){
         return "Shield " + getName();
     }
+
+    @Override
+    public void interact() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
 }

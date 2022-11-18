@@ -1,5 +1,6 @@
 package fr.campus_numerique.module_java.d_d.management;
 
+import fr.campus_numerique.module_java.d_d.entity.board.Case;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 
 import java.util.Scanner;
@@ -42,5 +43,9 @@ public class Menu {
 
     public String askToStartGame(){
         return askQuestion("Press enter to start the game.");
+    }
+
+    public String askInteractWithItem(Case box){
+        return askQuestion("Do you want to interact with "+ box+ " ?");
     }
 }
