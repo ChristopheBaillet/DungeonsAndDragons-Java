@@ -1,4 +1,4 @@
-package fr.campus_numerique.module_java.d_d;
+package fr.campus_numerique.module_java.d_d.exception;
 
 public class CharacterOutsideOfBoardException extends Exception {
     @Override

@@ -1,4 +1,7 @@
-package fr.campus_numerique.module_java.d_d;
+package fr.campus_numerique.module_java.d_d.entity.type;
+
+import fr.campus_numerique.module_java.d_d.entity.stuff.defensive.DefensiveStuff;
+import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.OffensiveStuff;
 
 abstract public class Personnage {
     protected String name;

@@ -1,4 +1,9 @@
-package fr.campus_numerique.module_java.d_d;
+package fr.campus_numerique.module_java.d_d.management;
+
+import fr.campus_numerique.module_java.d_d.exception.CharacterOutsideOfBoardException;
+import fr.campus_numerique.module_java.d_d.entity.type.Magician;
+import fr.campus_numerique.module_java.d_d.entity.type.Personnage;
+import fr.campus_numerique.module_java.d_d.entity.Warrior;
 
 import java.util.Random;
 import java.util.Scanner;

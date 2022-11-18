@@ -1,4 +1,8 @@
-package fr.campus_numerique.module_java.d_d;
+package fr.campus_numerique.module_java.d_d.entity;
+
+import fr.campus_numerique.module_java.d_d.entity.stuff.defensive.Shield;
+import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.Weapon;
+import fr.campus_numerique.module_java.d_d.entity.type.Personnage;
 
 public class Warrior extends Personnage {
     public Warrior(){

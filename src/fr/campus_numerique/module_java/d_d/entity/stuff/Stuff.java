@@ -1,4 +1,4 @@
-package fr.campus_numerique.module_java.d_d;
+package fr.campus_numerique.module_java.d_d.entity.stuff;
 
 public class Stuff {
     private String offensive,defensive;

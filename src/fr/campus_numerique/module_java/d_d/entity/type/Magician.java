@@ -1,4 +1,8 @@
-package fr.campus_numerique.module_java.d_d;
+package fr.campus_numerique.module_java.d_d.entity.type;
+
+import fr.campus_numerique.module_java.d_d.entity.stuff.defensive.Potion;
+import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.Spell;
+
 public class Magician extends Personnage {
 
     public Magician(){

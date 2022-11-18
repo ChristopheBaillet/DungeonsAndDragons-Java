@@ -1,4 +1,6 @@
-package fr.campus_numerique.module_java.d_d;
+package fr.campus_numerique.module_java.d_d.management;
+
+import fr.campus_numerique.module_java.d_d.entity.type.Personnage;
 
 import java.util.Scanner;
 
