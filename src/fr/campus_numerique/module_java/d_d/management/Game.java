@@ -1,9 +1,10 @@
 package fr.campus_numerique.module_java.d_d.management;
 
+import fr.campus_numerique.module_java.d_d.entity.board.Board;
 import fr.campus_numerique.module_java.d_d.exception.CharacterOutsideOfBoardException;
-import fr.campus_numerique.module_java.d_d.entity.type.Magician;
-import fr.campus_numerique.module_java.d_d.entity.type.Personnage;
-import fr.campus_numerique.module_java.d_d.entity.Warrior;
+import fr.campus_numerique.module_java.d_d.entity.character.type.Magician;
+import fr.campus_numerique.module_java.d_d.entity.character.Personage;
+import fr.campus_numerique.module_java.d_d.entity.character.type.Warrior;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class Game {
     private final Board board = new Board();
     private final Menu menu = new Menu();
     private final Scanner scanner = new Scanner(System.in);
-    private Personnage character;
+    private Personage character;
 
     public void start() {
         switch (menu.main()) {
@@ -24,12 +25,12 @@ public class Game {
         playGame();
     }
 
-    private Personnage createCharacter() {
+    private Personage createCharacter() {
         return validateCharacter(character());
     }
 
-    private Personnage character() {
-        Personnage character = defineCharacterClass();
+    private Personage character() {
+        Personage character = defineCharacterClass();
         character.setName(defineName());
         return character;
     }
@@ -38,7 +39,7 @@ public class Game {
         System.exit(0);
     }
 
-    private Personnage validateCharacter(Personnage character) {
+    private Personage validateCharacter(Personage character) {
         menu.showCharacterNameAndClass(character);
         String userChoice = menu.askValidationOfCharacter();
         switch (userChoice) {
@@ -52,8 +53,8 @@ public class Game {
         return character;
     }
 
-    private Personnage defineCharacterClassWithName(String name) {
-        Personnage classe = null;
+    private Personage defineCharacterClassWithName(String name) {
+        Personage classe = null;
         switch (menu.askClass()) {
             case "1" -> classe = new Warrior(name);
             case "2" -> classe = new Magician(name);
@@ -63,7 +64,7 @@ public class Game {
         return classe;
     }
 
-    private Personnage modify(Personnage character) {
+    private Personage modify(Personage character) {
         String userInput = menu.modifyCharacter();
         switch (userInput) {
             case "1" -> character = defineCharacterClassWithName(character.getName());
@@ -78,8 +79,8 @@ public class Game {
        return menu.askCharacterName();
     }
 
-    private Personnage defineCharacterClass() {
-        Personnage classe = null;
+    private Personage defineCharacterClass() {
+        Personage classe = null;
         switch (menu.askClass()) {
             case "1" -> classe = new Warrior();
             case "2" -> classe = new Magician();
@@ -106,7 +107,7 @@ public class Game {
         switch (menu.askToStartGame()) {
             case "" -> {
                 board.initialize(character);
-                board.printArray(board.getCases(), character.getPosition());
+                board.printArray(board.getBoxes(), character.getPosition());
                 System.out.println(character.getPosition());
                 while (!board.getStatus().equals("finished")) {
                     String userInput = scanner.nextLine();
@@ -135,21 +136,21 @@ public class Game {
         return new int[]{dice1, dice2};
     }
 
-    public void playATurn(Personnage character) throws CharacterOutsideOfBoardException {
+    public void playATurn(Personage character) throws CharacterOutsideOfBoardException {
         int[] roll = rollDices();
         int playerPosition = character.getPosition();
         int nbCases = board.getNbCases();
-        playerPosition += roll[0] + roll[1];
+        //playerPosition += roll[0] + roll[1];
+        playerPosition++;
         if (playerPosition > nbCases) {
             throw new CharacterOutsideOfBoardException();
         }
         character.setPosition(playerPosition);
-        board.printArray(board.getCases(), character.getPosition());
+        board.printArray(board.getBoxes(), character.getPosition());
         if (playerPosition == nbCases) {
             board.setStatus("finished");
             System.out.println("finished " + playerPosition);
         }
-        System.out.println(playerPosition);
     }
 }
 

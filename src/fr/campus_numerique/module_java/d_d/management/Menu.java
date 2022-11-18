@@ -1,6 +1,6 @@
 package fr.campus_numerique.module_java.d_d.management;
 
-import fr.campus_numerique.module_java.d_d.entity.type.Personnage;
+import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 
 import java.util.Scanner;
 
@@ -23,7 +23,7 @@ public class Menu {
         return askQuestion("[1] Validate | [2] Modify | [q] Quit");
     }
 
-    public void showCharacterNameAndClass(Personnage character){
+    public void showCharacterNameAndClass(Personage character){
         System.out.println(character);
     }
 

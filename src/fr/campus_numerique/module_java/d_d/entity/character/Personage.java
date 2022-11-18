@@ -1,17 +1,17 @@
-package fr.campus_numerique.module_java.d_d.entity.type;
+package fr.campus_numerique.module_java.d_d.entity.character;
 
 import fr.campus_numerique.module_java.d_d.entity.stuff.defensive.DefensiveStuff;
 import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.OffensiveStuff;
 
-abstract public class Personnage {
+abstract public class Personage {
     protected String name;
     protected int HP, attackPower,position;
     protected OffensiveStuff offensiveStuff;
     protected DefensiveStuff defensiveStuff;
-    public Personnage(){
+    public Personage(){
 
     }
-    public Personnage(String name) {
+    public Personage(String name) {
         this.name = name;
     }
 
