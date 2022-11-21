@@ -1,14 +1,18 @@
 package fr.campus_numerique.module_java.d_d.entity.board;
 
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
-import fr.campus_numerique.module_java.d_d.entity.stuff.items.Potion;
-import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.Weapon;
+import fr.campus_numerique.module_java.d_d.entity.character.type.Dragon;
+import fr.campus_numerique.module_java.d_d.entity.character.type.Goblin;
 import fr.campus_numerique.module_java.d_d.entity.character.type.Robber;
+import fr.campus_numerique.module_java.d_d.entity.character.type.Wizard;
+import fr.campus_numerique.module_java.d_d.entity.stuff.items.BigPotion;
+import fr.campus_numerique.module_java.d_d.entity.stuff.items.Potion;
+import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.*;
 
 import java.util.ArrayList;
 
 public class Board {
-    private final int nbCases = 4;
+    private int nbCases;
     private String status;
     private final ArrayList<Case> boxes = new ArrayList<>();
 
@@ -23,20 +27,29 @@ public class Board {
 
     public Board(){
         this.boxes.add(0,new EmptyCase());
-        this.boxes.add(1,new Robber("Roger"));
-        this.boxes.add(2,new Weapon("dague de débutant", 1));
-        this.boxes.add(3, new Potion("Healing potion", 2));
+        this.boxes.add(1,new Robber(5));
+        this.boxes.add(2,new Sword( 1));
+        this.boxes.add(3, new Potion(1));
+        this.boxes.add(4, new Club(6));
+        this.boxes.add(5, new Fireball(10));
+        this.boxes.add(6, new BigPotion(10));
+        this.boxes.add(7, new Dragon(50));
+        this.boxes.add(8, new Goblin(2));
+        this.boxes.add(9, new Wizard(10));
+        this.boxes.add(10, new LightningBolt(20));
+        this.nbCases = this.boxes.size();
     }
 
     public void printArray(ArrayList<Case> boxes, int playerPosition){
         for (int i = 0 ; i< boxes.size(); i++) {
             if (i == playerPosition){
-                System.out.println(boxes.get(i) + " <--");
+                System.out.print("You");
             }else {
-                System.out.println(boxes.get(i));
+                System.out.print("...");
             }
+            System.out.print("|");
         }
-
+        System.out.println();
     }
     public void initialize(Personage character){
         this.status = "playing";

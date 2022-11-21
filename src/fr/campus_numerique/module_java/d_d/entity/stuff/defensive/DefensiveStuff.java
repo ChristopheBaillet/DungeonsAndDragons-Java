@@ -4,7 +4,7 @@ import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 
 abstract public class DefensiveStuff extends Item {
     public DefensiveStuff(String name, int power){
-        super(name,power);
+        super(power);
     }
     @Override
     public String toString() {

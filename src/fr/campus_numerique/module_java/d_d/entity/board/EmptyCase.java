@@ -1,5 +1,8 @@
 package fr.campus_numerique.module_java.d_d.entity.board;
 
+import fr.campus_numerique.module_java.d_d.entity.character.Personage;
+import org.w3c.dom.ls.LSOutput;
+
 public class EmptyCase implements Case{
     @Override
     public String toString(){
@@ -7,8 +10,8 @@ public class EmptyCase implements Case{
     }
 
     @Override
-    public void interact() {
-
+    public void interact(Personage character) {
+        System.out.println("Ceci est un "+this);
     }
 
     @Override

@@ -6,7 +6,7 @@ abstract public class Item implements Case {
     private String name;
     private int power;
 
-    public Item(String name, int power){
+    public Item(int power){
         this.name = name;
         this.power = power;
     }

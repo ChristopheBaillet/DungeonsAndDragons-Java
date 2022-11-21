@@ -5,18 +5,26 @@ import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.OffensiveStuff
 
 abstract public class Personage {
     protected String name;
-    protected int HP, attackPower,position;
+    protected int HP, attackPower,position, maxHP;
     protected OffensiveStuff offensiveStuff;
     protected DefensiveStuff defensiveStuff;
     public Personage(){
 
     }
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
+    }
+
     public Personage(String name) {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
+    public String getInfos() {
         return "Personnage { " +
                 "name = " + name + "\n" +
                 "HP = " + HP + "\n"+
