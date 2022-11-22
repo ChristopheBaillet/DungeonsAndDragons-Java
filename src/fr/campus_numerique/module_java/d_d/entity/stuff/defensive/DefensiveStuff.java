@@ -3,8 +3,10 @@ package fr.campus_numerique.module_java.d_d.entity.stuff.defensive;
 import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 
 abstract public class DefensiveStuff extends Item {
+    private int power;
     public DefensiveStuff(String name, int power){
-        super(power);
+        super(name);
+        this.power = power;
     }
     @Override
     public String toString() {
@@ -13,4 +15,13 @@ abstract public class DefensiveStuff extends Item {
                 ", power=" + getPower() +
                 '}';
     }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
+    }
+
 }

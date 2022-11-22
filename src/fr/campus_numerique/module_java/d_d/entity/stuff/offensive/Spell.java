@@ -3,8 +3,8 @@ package fr.campus_numerique.module_java.d_d.entity.stuff.offensive;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 
 abstract public class Spell extends OffensiveStuff {
-    public Spell(int power) {
-        super(power);
+    public Spell(String name,int power) {
+        super(name, power);
     }
 
     @Override

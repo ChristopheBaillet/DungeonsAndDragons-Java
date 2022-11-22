@@ -3,8 +3,10 @@ package fr.campus_numerique.module_java.d_d.entity.stuff.offensive;
 import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 
 abstract public class OffensiveStuff extends Item {
-    public OffensiveStuff(int power){
-       super(power);
+    private int power;
+    public OffensiveStuff(String name, int power){
+       super(name);
+       this.power = power;
     }
     @Override
     public String toString() {
@@ -12,5 +14,13 @@ abstract public class OffensiveStuff extends Item {
                 "name='" + getName() + '\'' +
                 ", power=" + getPower() +
                 '}';
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public void setPower(int power) {
+        this.power = power;
     }
 }

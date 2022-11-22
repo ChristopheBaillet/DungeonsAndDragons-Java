@@ -4,6 +4,7 @@ import fr.campus_numerique.module_java.d_d.entity.character.CharacterTypes;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 import fr.campus_numerique.module_java.d_d.entity.stuff.ItemsFactory;
 import fr.campus_numerique.module_java.d_d.entity.stuff.ItemsTypes;
+import fr.campus_numerique.module_java.d_d.entity.stuff.defensive.DefensiveStuff;
 import fr.campus_numerique.module_java.d_d.entity.stuff.defensive.Shield;
 import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.OffensiveStuff;
 import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.Sword;
@@ -16,16 +17,11 @@ public class Warrior extends Personage {
     }
     public Warrior(String name) {
         super(name, CharacterTypes.WARRIOR);
-        try {
-            this.offensiveStuff = (OffensiveStuff) ItemsFactory.createItem(ItemsTypes.SWORD); //new Sword( 5);
-            this.defensiveStuff = new Shield("Aubéclat",  3);
-        } catch (ItemException e) {
-        }
-
+        this.offensiveStuff = (OffensiveStuff) ItemsFactory.createItem(ItemsTypes.SWORD); //new Sword( 5);
+        this.defensiveStuff = (DefensiveStuff) ItemsFactory.createItem(ItemsTypes.SHIELD);
     }
     @Override
     public String toString(){
         return "Warrior " + this.name;
     }
-
 }

@@ -2,6 +2,8 @@ package fr.campus_numerique.module_java.d_d.management;
 
 import fr.campus_numerique.module_java.d_d.entity.board.Board;
 import fr.campus_numerique.module_java.d_d.entity.board.Case;
+import fr.campus_numerique.module_java.d_d.entity.character.CharacterTypes;
+import fr.campus_numerique.module_java.d_d.entity.character.CharactersFactory;
 import fr.campus_numerique.module_java.d_d.entity.character.Enemy;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 import fr.campus_numerique.module_java.d_d.entity.character.type.Magician;
@@ -55,13 +57,13 @@ public class Game {
     }
 
     private Personage defineCharacterClassWithName(String name) {
-        Personage classe = null;
+        Personage character = null;
         switch (menu.askClass()) {
-            case WARRIOR -> classe = new Warrior(name);
-            case MAGICIAN -> classe = new Magician(name);
+            case WARRIOR -> character = CharactersFactory.createCharacter(CharacterTypes.WARRIOR, name);
+            case MAGICIAN -> character = CharactersFactory.createCharacter(CharacterTypes.MAGICIAN, name);
             case QUIT -> exit();
         }
-        return classe;
+        return character;
     }
 
     private Personage modify(Personage character) {

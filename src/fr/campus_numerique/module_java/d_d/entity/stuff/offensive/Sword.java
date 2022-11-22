@@ -1,8 +1,8 @@
 package fr.campus_numerique.module_java.d_d.entity.stuff.offensive;
 
 public class Sword extends Weapon {
-    public Sword( int power) {
-        super(power);
+    public Sword(String name,int power) {
+        super(name, power);
     }
 
     @Override
