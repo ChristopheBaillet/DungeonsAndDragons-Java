@@ -103,24 +103,26 @@ public class Game {
             case CONTINUE -> {
                 board.initialize(character);
                 menu.showHelpInfos();
-                while (!board.getStatus().equals("finished")) {
-                    switch (menu.inGame()) {
-                        case PLAY -> {
-                            try {
-                                playATurn(character);
-                            } catch (CharacterOutsideOfBoardException exception) {
-                                System.out.println(exception);
-                                playAgain();
-                            }
-                        }
-                        case SHOW_INFOS -> System.out.println(character.getInfos());
-                        case QUIT -> exit();
-                        case HELP -> menu.showHelpInfos();
-                    }
-                }
-                playAgain();
+                gameLoop();
             }
             case QUIT -> exit();
+        }
+    }
+
+    private void gameLoop() {
+        switch (menu.inGame()) {
+            case PLAY -> {
+                try {
+                    playATurn(character);
+                    gameLoop();
+                } catch (CharacterOutsideOfBoardException exception) {
+                    System.out.println(exception);
+                    playAgain();
+                }
+            }
+            case SHOW_INFOS -> System.out.println(character.getInfos());
+            case QUIT -> exit();
+            case HELP -> menu.showHelpInfos();
         }
     }
 
@@ -137,13 +139,11 @@ public class Game {
         Case element = board.getBoxes().get(playerPosition);
         board.printArray(board.getBoxes(), character.getPosition());
 //        playerPosition += roll[0] + roll[1];
-        playerPosition++;
+        board.acceptPlayerAt(playerPosition++);
         if (playerPosition == maxPosition) {
             board.setStatus("finished");
             System.out.println("finished " + playerPosition);
-        }else if (playerPosition > maxPosition) {
-            throw new CharacterOutsideOfBoardException();
-        }else {
+        } else {
             character.setPosition(playerPosition);
             if (element instanceof Enemy){
                 switch(menu.askInteractWithEnemy(element)){

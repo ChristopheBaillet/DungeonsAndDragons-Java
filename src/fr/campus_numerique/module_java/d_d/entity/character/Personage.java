@@ -5,12 +5,12 @@ import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.OffensiveStuff
 
 abstract public class Personage {
     protected String name;
+
+    private CharacterTypes type;
     protected int HP, attackPower,position, maxHP;
     protected OffensiveStuff offensiveStuff;
     protected DefensiveStuff defensiveStuff;
-    public Personage(){
 
-    }
 
     public int getMaxHP() {
         return maxHP;
@@ -20,10 +20,16 @@ abstract public class Personage {
         this.maxHP = maxHP;
     }
 
-    public Personage(String name) {
-        this.name = name;
+
+    public Personage(CharacterTypes type) {
+        this(type.getName(), type);
     }
 
+    public Personage(String name, CharacterTypes type) {
+        this.name = name;
+        this.HP = type.getHP();
+        this.attackPower = type.getAttackPower();
+    }
     public String getInfos() {
         return "Personnage { " +
                 "name = " + name + "\n" +

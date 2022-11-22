@@ -4,11 +4,9 @@ import fr.campus_numerique.module_java.d_d.entity.board.Case;
 
 abstract public class Item implements Case {
     private String name;
-    private int power;
 
-    public Item(int power){
+    public Item(String name){
         this.name = name;
-        this.power = power;
     }
 
     public String getName() {
@@ -19,11 +17,4 @@ abstract public class Item implements Case {
         this.name = name;
     }
 
-    public int getPower() {
-        return power;
-    }
-
-    public void setPower(int power) {
-        this.power = power;
-    }
 }
