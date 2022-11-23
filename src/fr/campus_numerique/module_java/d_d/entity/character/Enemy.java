@@ -10,7 +10,7 @@ abstract public class Enemy extends Personage implements Case {
     }
     @Override
     public void interact(Personage character) {
-        System.out.println("Ceci est un "+this);
+
     }
 
     @Override

@@ -11,11 +11,12 @@ public enum ItemsTypes {
     ROBE("robe de novice");
 
     private final String name;
-    ItemsTypes(String name){
+
+    ItemsTypes(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 }

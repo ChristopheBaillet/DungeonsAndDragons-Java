@@ -8,34 +8,49 @@ import java.util.Scanner;
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
 
-    public UserChoice main() {
-        return switch (askQuestion("[1] Create character | [q] Quit")) {
-            case "1" -> UserChoice.CONTINUE;
-            case "q" -> UserChoice.QUIT;
-            default -> main();
-        };
+    public UserChoice main(Personage character) {
+        UserChoice userInput;
+        String message = character != null ? "[1] Create character | [2] Start Game | [3] Modify | [q] Quit" : "[1] Create character | [q] Quit";
+        do {
+            switch (askQuestion(message)) {
+                case "1" -> userInput = UserChoice.CREATE_CHARACTER;
+                case "2" -> userInput = character != null ? UserChoice.PLAY : UserChoice.WRONG_ANSWER;
+                case "3" -> userInput =  character != null ? UserChoice.MODIFY : UserChoice.WRONG_ANSWER;
+                case "q" -> userInput =  UserChoice.QUIT;
+                default -> userInput = UserChoice.WRONG_ANSWER;
+            };
+        }while (userInput == UserChoice.WRONG_ANSWER);
+        return userInput;
     }
 
     public UserChoice askClass() {
-        return switch (askQuestion("[1] Warrior |[2] Magician |[q] Quit")) {
-            case "1" -> UserChoice.WARRIOR;
-            case "2" -> UserChoice.MAGICIAN;
-            case "q" -> UserChoice.QUIT;
-            default -> askClass();
-        };
+        UserChoice userInput;
+        do {
+            userInput = switch (askQuestion("[1] Warrior |[2] Magician |[q] Quit")) {
+                case "1" -> UserChoice.WARRIOR;
+                case "2" -> UserChoice.MAGICIAN;
+                case "q" -> UserChoice.QUIT;
+                default -> askClass();
+            };
+        }while (userInput == UserChoice.WRONG_ANSWER);
+        return userInput;
     }
 
     public String askCharacterName() {
-        return askQuestion("What is the name of you character ? | [q] Quit");
+        return askQuestion("What is the name of you character ?");
     }
 
     public UserChoice askValidationOfCharacter() {
-        return switch (askQuestion("[1] Validate | [2] Modify | [q] Quit")) {
-            case "1" -> UserChoice.VALIDATE;
-            case "2" -> UserChoice.MODIFY;
-            case "q" -> UserChoice.QUIT;
-            default -> askValidationOfCharacter();
-        };
+        UserChoice userInput;
+        do {
+            userInput = switch (askQuestion("[1] Validate | [2] Modify | [q] Quit")) {
+                case "1" -> UserChoice.VALIDATE;
+                case "2" -> UserChoice.MODIFY;
+                case "q" -> UserChoice.QUIT;
+                default -> askValidationOfCharacter();
+            };
+        }while (userInput == UserChoice.WRONG_ANSWER);
+        return userInput;
     }
 
     public void showCharacterNameAndClass(Personage character) {
@@ -48,47 +63,66 @@ public class Menu {
     }
 
     public UserChoice modifyCharacter() {
-        return switch (askQuestion("What do you want to modify ? | [1] Class | [2] Name | [q] Quit")) {
-            case "1" -> UserChoice.CLASS;
-            case "2" -> UserChoice.NAME;
-            case "q" -> UserChoice.QUIT;
-            default -> modifyCharacter();
-        };
+        UserChoice userInput;
+        do {
+            userInput = switch (askQuestion("What do you want to modify ? | [1] Class | [2] Name | [q] Quit")) {
+                case "1" -> UserChoice.CLASS;
+                case "2" -> UserChoice.NAME;
+                case "q" -> UserChoice.QUIT;
+                default -> modifyCharacter();
+            };
+        }while (userInput == UserChoice.WRONG_ANSWER);
+        return userInput;
     }
 
     public UserChoice askToPlayAgain() {
-        return switch (askQuestion("[1] Play Again |[q] Quit")) {
-            case "1" -> UserChoice.PLAY_AGAIN;
-            case "q" -> UserChoice.QUIT;
-            default -> askToPlayAgain();
-        };
+        UserChoice userInput;
+        do {
+            userInput = switch (askQuestion("[1] Play Again |[q] Quit")) {
+                case "1" -> UserChoice.PLAY_AGAIN;
+                case "q" -> UserChoice.QUIT;
+                default -> UserChoice.WRONG_ANSWER;
+            };
+        }while (userInput == UserChoice.WRONG_ANSWER);
+        return userInput;
     }
 
     public UserChoice askToStartGame() {
-        if (askQuestion("Press enter to start the game.").equals("")){
-            return UserChoice.CONTINUE;
-        }else {
-            askToStartGame();
-        }
-        return null;
+        UserChoice userInput;
+        do {
+            if (askQuestion("Press enter to start the game.").equals("")) {
+                userInput = UserChoice.CONTINUE;
+            } else {
+                userInput = UserChoice.WRONG_ANSWER;
+            }
+        } while (userInput == UserChoice.WRONG_ANSWER);
+        return userInput;
     }
 
     public UserChoice askInteractWithItem(Case box) {
-        return switch (askQuestion("Do you want to take this " + box + " ? [y] Yes | [n] No")) {
-            case "y" -> UserChoice.YES;
-            case "n" -> UserChoice.NO;
-            default -> askInteractWithItem(box);
-        };
+        UserChoice userInput;
+        do {
+            userInput = switch (askQuestion("Do you want to take this " + box + " ? [y] Yes | [n] No")) {
+                case "y" -> UserChoice.YES;
+                case "n" -> UserChoice.NO;
+                default -> UserChoice.WRONG_ANSWER;
+            };
+        } while (userInput == UserChoice.WRONG_ANSWER);
+        return userInput;
     }
 
     public UserChoice inGame() {
-        return switch (scanner.nextLine()) {
-            case "" -> UserChoice.PLAY;
-            case "i" -> UserChoice.SHOW_INFOS;
-            case "q" -> UserChoice.QUIT;
-            case "help" -> UserChoice.HELP;
-            default -> inGame();
-        };
+        UserChoice userInput;
+        do {
+            userInput = switch (scanner.nextLine()) {
+                case "" -> UserChoice.PLAY;
+                case "i" -> UserChoice.SHOW_INFOS;
+                case "q" -> UserChoice.QUIT;
+                case "help" -> UserChoice.HELP;
+                default -> UserChoice.WRONG_ANSWER;
+            };
+        } while (userInput == UserChoice.WRONG_ANSWER);
+        return userInput;
     }
 
     public void showHelpInfos() {
@@ -100,10 +134,14 @@ public class Menu {
     }
 
     public UserChoice askInteractWithEnemy(Case box) {
-        return switch (askQuestion("this is a " + box + "\nDo you want to fight it?")) {
-            case "y" -> UserChoice.YES;
-            case "n" -> UserChoice.NO;
-            default -> askInteractWithItem(box);
-        };
+        UserChoice userInput;
+        do {
+            userInput = switch (askQuestion("this is a " + box + "\nDo you want to fight it?")) {
+                case "y" -> UserChoice.YES;
+                case "n" -> UserChoice.NO;
+                default -> UserChoice.WRONG_ANSWER;
+            };
+        } while (userInput == UserChoice.WRONG_ANSWER);
+        return userInput;
     }
 }

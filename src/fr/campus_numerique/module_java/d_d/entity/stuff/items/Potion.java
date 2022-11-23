@@ -4,7 +4,7 @@ import fr.campus_numerique.module_java.d_d.entity.board.Case;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 
-public class Potion extends Item implements Case {
+public class Potion extends Item {
     private int power;
     public Potion(String name, int power){
         super(name);

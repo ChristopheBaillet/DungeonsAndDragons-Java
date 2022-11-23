@@ -10,24 +10,14 @@ abstract public class Personage {
     protected int HP, attackPower,position, maxHP;
     protected OffensiveStuff offensiveStuff;
     protected DefensiveStuff defensiveStuff;
-
-
-    public int getMaxHP() {
-        return maxHP;
-    }
-
-    public void setMaxHP(int maxHP) {
-        this.maxHP = maxHP;
-    }
-
-
     public Personage(CharacterTypes type) {
         this(type.getName(), type);
     }
 
     public Personage(String name, CharacterTypes type) {
         this.name = name;
-        this.HP = type.getHP();
+        this.maxHP = type.getHP();
+        this.HP = maxHP;
         this.attackPower = type.getAttackPower();
     }
     public String getInfos() {
@@ -38,6 +28,12 @@ abstract public class Personage {
                 offensiveStuff +"\n"+
                 defensiveStuff +"\n"+
                 '}';
+    }
+
+    public void levelUp(){
+        this.maxHP += 5;
+        this.attackPower += 3;
+        this.HP += 5;
     }
 
     public int getHP() {
@@ -80,5 +76,14 @@ abstract public class Personage {
     public int getPosition() { return position; }
 
     public void setPosition(int position) { this.position = position; }
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
+    }
+
 
 }

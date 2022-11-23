@@ -12,48 +12,40 @@ import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 import fr.campus_numerique.module_java.d_d.exception.CharacterOutsideOfBoardException;
 
 import java.util.Random;
-import java.util.Scanner;
 
 
 public class Game {
     private final Random random = new Random();
     private final Board board = new Board();
     private final Menu menu = new Menu();
-    private final Scanner scanner = new Scanner(System.in);
     private Personage character;
+    private GameStatus gameStatus;
 
-    public void start() {
-        switch (menu.main()) {
-            case CONTINUE -> character = createCharacter();
-            case QUIT -> exit();
-        }
-        playGame();
+    public Game() {
+        gameStatus = GameStatus.UNINITIALIZED;
+        do {
+            switch (menu.main(character)) {
+                case CREATE_CHARACTER -> {
+                    gameStatus = GameStatus.CREATING_CHARACTER;
+                    character = createCharacter();
+                }
+                case PLAY -> {
+                    gameStatus = GameStatus.ON_GOING;
+                    playGame();
+                }
+                case QUIT -> gameStatus = GameStatus.QUIT_GAME;
+                case MODIFY -> System.out.println(character);
+            }
+        } while (gameStatus != GameStatus.QUIT_GAME);
+
     }
 
     private Personage createCharacter() {
-        return validateCharacter(character());
-    }
-
-    private Personage character() {
-        Personage character = defineCharacterClass();
-        character.setName(defineName());
-        return character;
+        return defineCharacterClassWithName(defineName());
     }
 
     private void exit() {
-        System.exit(0);
-    }
-
-    private Personage validateCharacter(Personage character) {
-        menu.showCharacterNameAndClass(character);
-        switch (menu.askValidationOfCharacter()) {
-            case VALIDATE -> {
-                return character;
-            }
-            case MODIFY -> validateCharacter(modify(character));
-            case QUIT -> exit();
-        }
-        return character;
+        gameStatus = GameStatus.QUIT_GAME;
     }
 
     private Personage defineCharacterClassWithName(String name) {
@@ -66,31 +58,8 @@ public class Game {
         return character;
     }
 
-    private Personage modify(Personage character) {
-        switch (menu.modifyCharacter()) {
-            case CLASS -> character = defineCharacterClassWithName(character.getName());
-            case NAME -> character.setName(defineName());
-            case QUIT -> exit();
-        }
-        return character;
-    }
-
     private String defineName() {
-       return menu.askCharacterName();
-    }
-
-    private Personage defineCharacterClass() {
-        Personage classe = null;
-        switch (menu.askClass()) {
-            case WARRIOR -> classe = new Warrior();
-            case MAGICIAN -> classe = new Magician();
-            case QUIT -> exit();
-        }
-        return classe;
-    }
-
-    private String defineCharacterName(String name) {
-        return name;
+        return menu.askCharacterName();
     }
 
     private void playAgain() {
@@ -101,30 +70,33 @@ public class Game {
     }
 
     private void playGame() {
-        switch (menu.askToStartGame()) {
-            case CONTINUE -> {
-                board.initialize(character);
-                menu.showHelpInfos();
-                gameLoop();
+        while (board.getStatus() != GameStatus.QUIT_GAME) {
+            switch (menu.askToStartGame()) {
+                case CONTINUE -> {
+                    board.initialize(character);
+                    menu.showHelpInfos();
+                    gameLoop();
+                }
+                case QUIT -> exit();
             }
-            case QUIT -> exit();
         }
     }
 
     private void gameLoop() {
-        switch (menu.inGame()) {
-            case PLAY -> {
-                try {
-                    playATurn(character);
-                    gameLoop();
-                } catch (CharacterOutsideOfBoardException exception) {
-                    System.out.println(exception);
-                    playAgain();
+        while (board.getStatus() != GameStatus.FINISHED) {
+            switch (menu.inGame()) {
+                case PLAY -> {
+                    try {
+                        playATurn(character);
+                    } catch (CharacterOutsideOfBoardException exception) {
+                        System.out.println(exception);
+                        playAgain();
+                    }
                 }
+                case SHOW_INFOS -> System.out.println(character.getInfos());
+                case QUIT -> exit();
+                case HELP -> menu.showHelpInfos();
             }
-            case SHOW_INFOS -> System.out.println(character.getInfos());
-            case QUIT -> exit();
-            case HELP -> menu.showHelpInfos();
         }
     }
 
@@ -143,26 +115,48 @@ public class Game {
 //        playerPosition += roll[0] + roll[1];
         board.acceptPlayerAt(playerPosition++);
         if (playerPosition == maxPosition) {
-            board.setStatus("finished");
+            board.setStatus(GameStatus.FINISHED);
             System.out.println("finished " + playerPosition);
         } else {
             character.setPosition(playerPosition);
-            if (element instanceof Enemy){
-                switch(menu.askInteractWithEnemy(element)){
+            if (element instanceof Enemy) {
+                switch (menu.askInteractWithEnemy(element)) {
                     case YES -> element.interact(character);
                     case NO -> {
                     }
-                };
-            }else if (element instanceof Item){
-                switch (menu.askInteractWithItem(element)){
+                }
+                ;
+            } else if (element instanceof Item) {
+                switch (menu.askInteractWithItem(element)) {
                     case YES -> element.interact(character);
                     case NO -> {
                     }
-                };
-            }else {
+                }
+                ;
+            } else {
                 System.out.println("This is an empty room");
             }
         }
+    }
+    private Personage modify(Personage character) {
+        switch (menu.modifyCharacter()) {
+            case CLASS -> character = defineCharacterClassWithName(character.getName());
+            case NAME -> character.setName(defineName());
+            case QUIT -> exit();
+        }
+        return character;
+    }
+
+    private Personage validateCharacter(Personage character) {
+        menu.showCharacterNameAndClass(character);
+        switch (menu.askValidationOfCharacter()) {
+            case VALIDATE -> {
+                return character;
+            }
+            case MODIFY -> validateCharacter(modify(character));
+            case QUIT -> exit();
+        }
+        return character;
     }
 }
 
