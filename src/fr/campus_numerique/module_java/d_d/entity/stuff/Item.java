@@ -1,6 +1,7 @@
 package fr.campus_numerique.module_java.d_d.entity.stuff;
 
 import fr.campus_numerique.module_java.d_d.entity.board.Case;
+import fr.campus_numerique.module_java.d_d.utilitary.Color;
 
 abstract public class Item implements Case {
     private String name;
@@ -22,4 +23,8 @@ abstract public class Item implements Case {
         return getName();
     }
 
+    @Override
+    public String display() {
+        return Color.BLUE.toString() + this + Color.RESET;
+    }
 }

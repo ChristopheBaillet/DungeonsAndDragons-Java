@@ -7,7 +7,7 @@ abstract public class Personage {
     protected String name;
 
     private CharacterTypes type;
-    protected int HP, attackPower, position, maxHP;
+    protected int HP, attackPower, maxHP;
     protected OffensiveStuff offensiveStuff;
     protected DefensiveStuff defensiveStuff;
 
@@ -40,11 +40,11 @@ abstract public class Personage {
     public void levelUp() {
         this.maxHP += 5;
         this.attackPower += 3;
-        this.HP += 5;
+        this.HP = maxHP;
     }
 
     public int getHP() {
-        return HP;
+        return this.HP;
     }
 
     public int getAttackPower() {
@@ -56,7 +56,7 @@ abstract public class Personage {
     }
 
     public void setHP(int HP) {
-        this.HP = HP;
+        this.HP = Math.min(HP, maxHP);
     }
 
     public void setAttackPower(int attackPower) {
@@ -82,15 +82,6 @@ abstract public class Personage {
     public void setDefensiveStuff(DefensiveStuff defensiveStuff) {
         this.defensiveStuff = defensiveStuff;
     }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
     public int getMaxHP() {
         return maxHP;
     }

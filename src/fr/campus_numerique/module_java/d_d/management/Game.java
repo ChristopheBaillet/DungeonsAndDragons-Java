@@ -2,6 +2,7 @@ package fr.campus_numerique.module_java.d_d.management;
 
 import fr.campus_numerique.module_java.d_d.entity.board.Board;
 import fr.campus_numerique.module_java.d_d.entity.board.Case;
+import fr.campus_numerique.module_java.d_d.entity.board.EmptyCase;
 import fr.campus_numerique.module_java.d_d.entity.character.CharacterTypes;
 import fr.campus_numerique.module_java.d_d.entity.character.CharactersFactory;
 import fr.campus_numerique.module_java.d_d.entity.character.Enemy;
@@ -21,22 +22,14 @@ public class Game {
     private GameStatus gameStatus;
 
     public Game() {
-        gameStatus = GameStatus.UNINITIALIZED;
         do {
-            switch (menu.main(character)) {
-                case CREATE_CHARACTER -> {
-                    gameStatus = GameStatus.CREATING_CHARACTER;
-                    character = createCharacter();
-                }
-                case PLAY -> {
-                    gameStatus = GameStatus.ON_GOING;
-                    playGame();
-                }
-                case QUIT -> gameStatus = GameStatus.QUIT_GAME;
+            gameStatus = menu.main(character);
+            switch (gameStatus) {
+                case CREATING_CHARACTER -> character = createCharacter();
+                case ON_GOING -> playGame();
                 case MODIFY -> System.out.println(character);
             }
         } while (gameStatus != GameStatus.QUIT_GAME);
-
     }
 
     private Personage createCharacter() {
@@ -78,20 +71,9 @@ public class Game {
     }
 
     private void playGame() {
-        while (board.getStatus() != GameStatus.QUIT_GAME) {
-            switch (menu.askToStartGame()) {
-                case CONTINUE -> {
-                    board.initialize(character);
-                    menu.showHelpInfos();
-                    gameLoop();
-                }
-                case QUIT -> exit();
-            }
-        }
-    }
-
-    private void gameLoop() {
-        while (board.getStatus() != GameStatus.FINISHED) {
+        board.initialize();
+        while (gameStatus == GameStatus.ON_GOING) {
+            board.display();
             switch (menu.inGame()) {
                 case PLAY -> {
                     try {
@@ -116,35 +98,31 @@ public class Game {
 
     public void playATurn(Personage character) throws CharacterOutsideOfBoardException {
         int[] roll = rollDices();
-        int playerPosition = character.getPosition();
+        int playerPosition = board.getPlayerPosition();
         int maxPosition = board.getNbCases();
         Case element = board.getBoxes().get(playerPosition);
-        board.printArray(board.getBoxes(), character.getPosition());
-//        playerPosition += roll[0] + roll[1];
-        board.acceptPlayerAt(playerPosition++);
+        playerPosition += roll[0] + roll[1];
+        board.acceptPlayerAt(playerPosition);
         if (playerPosition == maxPosition) {
-            board.setStatus(GameStatus.FINISHED);
+            gameStatus = GameStatus.FINISHED;
             System.out.println("finished " + playerPosition);
         } else {
-            character.setPosition(playerPosition);
-            if (element instanceof Enemy) {
-                switch (menu.askInteractWithEnemy(element)) {
-                    case YES -> element.interact(character);
-                    case NO -> {
-                    }
+            board.setPlayerPosition(playerPosition);
+            switch (menu.askInteract(element)) {
+                case YES -> element.interact(character);
+                case NO -> {
                 }
-                ;
-            } else if (element instanceof Item) {
-                switch (menu.askInteractWithItem(element)) {
-                    case YES -> element.interact(character);
-                    case NO -> {
-                    }
-                }
-                ;
-            } else {
-                System.out.println("This is an empty room");
             }
         }
+    }
+
+
+    private void moveCharacterForward(Personage character, int number) {
+
+    }
+
+    private void moveCharacterBackward(Personage Character, int number) {
+
     }
 
     private Personage modify(Personage character) {

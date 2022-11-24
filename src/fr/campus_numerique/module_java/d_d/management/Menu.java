@@ -1,27 +1,41 @@
 package fr.campus_numerique.module_java.d_d.management;
 
 import fr.campus_numerique.module_java.d_d.entity.board.Case;
+import fr.campus_numerique.module_java.d_d.entity.character.Enemy;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
+import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 
 import java.util.Scanner;
 
 public class Menu {
     private final Scanner scanner = new Scanner(System.in);
 
-    public UserChoice main(Personage character) {
+    public GameStatus main(Personage character) {
         UserChoice userInput;
+        GameStatus status = null;
         String message = character != null ? "[1] Create character | [2] Start Game | [3] Modify | [q] Quit" : "[1] Create character | [q] Quit";
         do {
             switch (askQuestion(message)) {
-                case "1" -> userInput = UserChoice.CREATE_CHARACTER;
-                case "2" -> userInput = character != null ? UserChoice.PLAY : UserChoice.WRONG_ANSWER;
-                case "3" -> userInput = character != null ? UserChoice.MODIFY : UserChoice.WRONG_ANSWER;
-                case "q" -> userInput = UserChoice.QUIT;
+                case "1" ->{
+                    userInput = UserChoice.CREATE_CHARACTER;
+                    status = GameStatus.CREATING_CHARACTER;
+                }
+                case "2" -> {
+                    userInput = character != null ? UserChoice.PLAY : UserChoice.WRONG_ANSWER;
+                    status = userInput != UserChoice.WRONG_ANSWER ? GameStatus.ON_GOING: GameStatus.UNINITIALIZED;
+                }
+                case "3" -> {
+                    userInput = character != null ? UserChoice.MODIFY : UserChoice.WRONG_ANSWER;
+                    status = userInput != UserChoice.WRONG_ANSWER ? GameStatus.MODIFY : GameStatus.UNINITIALIZED;
+                }
+                case "q" -> {
+                    userInput = UserChoice.QUIT;
+                    status = GameStatus.QUIT_GAME;
+                }
                 default -> userInput = UserChoice.WRONG_ANSWER;
-            }
-            ;
+            };
         } while (userInput == UserChoice.WRONG_ANSWER);
-        return userInput;
+        return status;
     }
 
     public UserChoice askClass() {
@@ -100,6 +114,14 @@ public class Menu {
         return userInput;
     }
 
+    public UserChoice askInteract(Case element){
+        if (element instanceof Item){
+            return askInteractWithItem(element);
+        }else {
+            return askInteractWithEnemy(element);
+        }
+    }
+
     public UserChoice askInteractWithItem(Case box) {
         UserChoice userInput;
         do {
@@ -115,7 +137,7 @@ public class Menu {
     public UserChoice inGame() {
         UserChoice userInput;
         do {
-            userInput = switch (scanner.nextLine()) {
+            userInput = switch (askQuestion("[] Type nothing and press enter to continue | [i] Show infos | [q] Quit | [help] Show Help Menu")) {
                 case "" -> UserChoice.PLAY;
                 case "i" -> UserChoice.SHOW_INFOS;
                 case "q" -> UserChoice.QUIT;
@@ -138,6 +160,18 @@ public class Menu {
         UserChoice userInput;
         do {
             userInput = switch (askQuestion("this is a " + box + "\nDo you want to fight it?")) {
+                case "y" -> UserChoice.YES;
+                case "n" -> UserChoice.NO;
+                default -> UserChoice.WRONG_ANSWER;
+            };
+        } while (userInput == UserChoice.WRONG_ANSWER);
+        return userInput;
+    }
+
+    public UserChoice askCharacterMove(){
+        UserChoice userInput;
+        do {
+            userInput = switch (askQuestion("[f] Move forward | [b] Move backward")) {
                 case "y" -> UserChoice.YES;
                 case "n" -> UserChoice.NO;
                 default -> UserChoice.WRONG_ANSWER;

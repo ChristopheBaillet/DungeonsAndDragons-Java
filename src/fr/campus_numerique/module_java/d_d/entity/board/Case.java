@@ -6,4 +6,5 @@ public interface Case {
     void interact(Personage character);
 
     void delete();
+    String display();
 }

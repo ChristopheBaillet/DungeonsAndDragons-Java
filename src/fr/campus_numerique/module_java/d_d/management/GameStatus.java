@@ -5,5 +5,7 @@ public enum GameStatus {
     ON_GOING,
     QUIT_GAME,
     CREATING_CHARACTER,
-    UNINITIALIZED;
+    UNINITIALIZED,
+    MODIFY,
+
 }

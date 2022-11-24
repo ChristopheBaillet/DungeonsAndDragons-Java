@@ -2,17 +2,19 @@ package fr.campus_numerique.module_java.d_d.entity.board;
 
 import fr.campus_numerique.module_java.d_d.entity.character.CharacterTypes;
 import fr.campus_numerique.module_java.d_d.entity.character.CharactersFactory;
-import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 import fr.campus_numerique.module_java.d_d.entity.stuff.ItemsFactory;
 import fr.campus_numerique.module_java.d_d.entity.stuff.ItemsTypes;
 
 import fr.campus_numerique.module_java.d_d.exception.CharacterOutsideOfBoardException;
 import fr.campus_numerique.module_java.d_d.exception.CharacterTypeException;
 import fr.campus_numerique.module_java.d_d.management.GameStatus;
+import fr.campus_numerique.module_java.d_d.utilitary.Color;
 
 import java.util.ArrayList;
 
 public class Board {
+    private int playerPosition;
+
     private int nbCases;
     private GameStatus status;
     private final ArrayList<Case> boxes = new ArrayList<>();
@@ -33,25 +35,27 @@ public class Board {
         }
     }
 
-    public void printArray(ArrayList<Case> boxes, int playerPosition) {
-        for (int i = 0; i < boxes.size(); i++) {
-            if (i == playerPosition) {
-                System.out.print("You");
-            } else {
-                System.out.print("...");
+    public void display() {
+        for (int i = 0; i < this.boxes.size(); i++) {
+            if (i == this.playerPosition) {
+                System.out.print(Color.GREEN +"You" + Color.RESET);
+            } else if(i < this.playerPosition) {
+                System.out.print(boxes.get(i).display());
+            }else {
+                System.out.print( "...");
             }
             System.out.print("|");
         }
         System.out.println();
     }
 
-    public void initialize(Personage character) {
+    public void initialize() {
         this.status = GameStatus.ON_GOING;
-        character.setPosition(0);
+        this.playerPosition = 0;
     }
 
     public void acceptPlayerAt(int pos) throws CharacterOutsideOfBoardException {
-        if (pos >= nbCases && pos < 0) {
+        if (pos >= nbCases || pos < 0) {
             throw new CharacterOutsideOfBoardException();
         }
     }
@@ -91,5 +95,13 @@ public class Board {
 
     public int getNbCases() {
         return nbCases;
+    }
+
+    public int getPlayerPosition() {
+        return playerPosition;
+    }
+
+    public void setPlayerPosition(int playerPosition) {
+        this.playerPosition = playerPosition;
     }
 }

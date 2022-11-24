@@ -14,7 +14,7 @@ public class Potion extends Item {
 
     @Override
     public void interact(Personage character) {
-        System.out.println("Ceci est un " + this);
+        character.setHP(character.getHP() + power);
     }
 
     @Override

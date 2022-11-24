@@ -1,4 +1,4 @@
-package fr.campus_numerique.module_java.d_d;
+package fr.campus_numerique.module_java.d_d.utilitary;
 
 import java.util.Random;
 
@@ -30,5 +30,7 @@ public class Utilitaire {
     public static String getRandomStringFromArray(String[] array) {
         return array[random.nextInt(array.length)];
     }
+
+
 
 }

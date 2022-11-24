@@ -1,6 +1,7 @@
 package fr.campus_numerique.module_java.d_d.entity.stuff.offensive;
 
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
+import fr.campus_numerique.module_java.d_d.entity.character.type.Magician;
 
 abstract public class Spell extends OffensiveStuff {
     public Spell(String name,int power) {
@@ -13,7 +14,9 @@ abstract public class Spell extends OffensiveStuff {
     }
     @Override
     public void interact(Personage character) {
-        System.out.println(this);
+        if (character instanceof Magician){
+            character.setAttackPower(getPower()+ character.getAttackPower());
+        }
     }
 
     @Override
