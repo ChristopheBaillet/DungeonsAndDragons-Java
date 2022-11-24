@@ -9,7 +9,7 @@ public class Dragon extends Enemy {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Dragon";
     }
 }

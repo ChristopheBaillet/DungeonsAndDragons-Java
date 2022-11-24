@@ -8,7 +8,6 @@ public class Robe extends DefensiveStuff {
         super(name, power);
     }
 
-
     @Override
     public void interact(Personage character) {
         System.out.println(this);

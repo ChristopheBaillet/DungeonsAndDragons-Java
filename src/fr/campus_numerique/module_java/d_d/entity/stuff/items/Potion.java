@@ -6,14 +6,15 @@ import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 
 public class Potion extends Item {
     private int power;
-    public Potion(String name, int power){
+
+    public Potion(String name, int power) {
         super(name);
         this.power = power;
     }
 
     @Override
     public void interact(Personage character) {
-        System.out.println("Ceci est un "+this);
+        System.out.println("Ceci est un " + this);
     }
 
     @Override

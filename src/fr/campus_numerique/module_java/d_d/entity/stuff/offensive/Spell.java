@@ -8,7 +8,7 @@ abstract public class Spell extends OffensiveStuff {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Spell " + getName();
     }
     @Override

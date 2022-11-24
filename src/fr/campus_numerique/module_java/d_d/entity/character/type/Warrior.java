@@ -12,16 +12,18 @@ import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.Weapon;
 import fr.campus_numerique.module_java.d_d.exception.ItemException;
 
 public class Warrior extends Personage {
-    public Warrior(){
+    public Warrior() {
         this("Bobby");
     }
+
     public Warrior(String name) {
         super(name, CharacterTypes.WARRIOR);
         this.offensiveStuff = (OffensiveStuff) ItemsFactory.createItem(ItemsTypes.SWORD);
         this.defensiveStuff = (DefensiveStuff) ItemsFactory.createItem(ItemsTypes.SHIELD);
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Warrior " + this.name;
     }
 }

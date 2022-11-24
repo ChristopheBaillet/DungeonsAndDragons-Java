@@ -59,7 +59,7 @@ public class Game {
                 }
                 case QUIT -> exit();
             }
-        }catch (CharacterTypeException e){
+        } catch (CharacterTypeException e) {
             System.out.println(e);
             return null;
         }

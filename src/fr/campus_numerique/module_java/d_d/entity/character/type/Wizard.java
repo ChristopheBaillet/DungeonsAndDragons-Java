@@ -9,7 +9,7 @@ public class Wizard extends Enemy {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Wizard";
     }
 }

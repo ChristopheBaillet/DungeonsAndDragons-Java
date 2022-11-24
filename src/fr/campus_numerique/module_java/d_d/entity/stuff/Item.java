@@ -5,7 +5,7 @@ import fr.campus_numerique.module_java.d_d.entity.board.Case;
 abstract public class Item implements Case {
     private String name;
 
-    public Item(String name){
+    public Item(String name) {
         this.name = name;
     }
 
@@ -18,7 +18,7 @@ abstract public class Item implements Case {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getName();
     }
 

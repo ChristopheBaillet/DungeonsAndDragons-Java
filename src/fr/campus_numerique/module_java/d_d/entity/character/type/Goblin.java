@@ -9,7 +9,7 @@ public class Goblin extends Enemy {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Goblin";
     }
 }

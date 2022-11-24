@@ -28,7 +28,7 @@ public class Board {
 
     public Board() {
         this.nbCases = 64;
-        for (int i = 1; i < nbCases + 1; i++) {
+        for (int i = 0; i < nbCases + 1; i++) {
             addCaseToBoard(i);
         }
     }

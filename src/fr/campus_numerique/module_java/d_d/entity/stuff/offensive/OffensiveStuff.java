@@ -4,10 +4,12 @@ import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 
 abstract public class OffensiveStuff extends Item {
     private int power;
-    public OffensiveStuff(String name, int power){
-       super(name);
-       this.power = power;
+
+    public OffensiveStuff(String name, int power) {
+        super(name);
+        this.power = power;
     }
+
     @Override
     public String toString() {
         return "OffensiveStuff{" +

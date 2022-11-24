@@ -15,11 +15,12 @@ public class Menu {
             switch (askQuestion(message)) {
                 case "1" -> userInput = UserChoice.CREATE_CHARACTER;
                 case "2" -> userInput = character != null ? UserChoice.PLAY : UserChoice.WRONG_ANSWER;
-                case "3" -> userInput =  character != null ? UserChoice.MODIFY : UserChoice.WRONG_ANSWER;
-                case "q" -> userInput =  UserChoice.QUIT;
+                case "3" -> userInput = character != null ? UserChoice.MODIFY : UserChoice.WRONG_ANSWER;
+                case "q" -> userInput = UserChoice.QUIT;
                 default -> userInput = UserChoice.WRONG_ANSWER;
-            };
-        }while (userInput == UserChoice.WRONG_ANSWER);
+            }
+            ;
+        } while (userInput == UserChoice.WRONG_ANSWER);
         return userInput;
     }
 
@@ -32,7 +33,7 @@ public class Menu {
                 case "q" -> UserChoice.QUIT;
                 default -> askClass();
             };
-        }while (userInput == UserChoice.WRONG_ANSWER);
+        } while (userInput == UserChoice.WRONG_ANSWER);
         return userInput;
     }
 
@@ -49,7 +50,7 @@ public class Menu {
                 case "q" -> UserChoice.QUIT;
                 default -> askValidationOfCharacter();
             };
-        }while (userInput == UserChoice.WRONG_ANSWER);
+        } while (userInput == UserChoice.WRONG_ANSWER);
         return userInput;
     }
 
@@ -71,7 +72,7 @@ public class Menu {
                 case "q" -> UserChoice.QUIT;
                 default -> modifyCharacter();
             };
-        }while (userInput == UserChoice.WRONG_ANSWER);
+        } while (userInput == UserChoice.WRONG_ANSWER);
         return userInput;
     }
 
@@ -83,7 +84,7 @@ public class Menu {
                 case "q" -> UserChoice.QUIT;
                 default -> UserChoice.WRONG_ANSWER;
             };
-        }while (userInput == UserChoice.WRONG_ANSWER);
+        } while (userInput == UserChoice.WRONG_ANSWER);
         return userInput;
     }
 

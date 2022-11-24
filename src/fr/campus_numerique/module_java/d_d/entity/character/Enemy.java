@@ -5,9 +5,10 @@ import fr.campus_numerique.module_java.d_d.entity.board.Case;
 abstract public class Enemy extends Personage implements Case {
     private int attackPower;
 
-    public Enemy(CharacterTypes type){
+    public Enemy(CharacterTypes type) {
         super(type);
     }
+
     @Override
     public void interact(Personage character) {
 
@@ -17,6 +18,7 @@ abstract public class Enemy extends Personage implements Case {
     public void delete() {
 
     }
+
     public int getAttackPower() {
         return attackPower;
     }

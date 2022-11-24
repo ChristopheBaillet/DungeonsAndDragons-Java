@@ -12,7 +12,7 @@ import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.Spell;
 
 public class Magician extends Personage {
 
-    public Magician(){
+    public Magician() {
         this("Roberto");
     }
 
@@ -23,7 +23,7 @@ public class Magician extends Personage {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Magician " + this.name;
     }
 }

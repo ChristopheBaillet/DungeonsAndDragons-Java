@@ -5,11 +5,11 @@ import java.util.Random;
 public class Utilitaire {
     /**
      * Test javadoc
-     *
      */
     private static final Random random = new Random();
-    public static String randomBetweenTwoStrings(String a, String b){
-        switch (random.nextInt(2)){
+
+    public static String randomBetweenTwoStrings(String a, String b) {
+        switch (random.nextInt(2)) {
             case 0 -> {
                 return a;
             }
@@ -19,6 +19,7 @@ public class Utilitaire {
         }
         return a;
     }
+
     public static int getIndexOf(String[] strings, String item) {
         for (int i = 0; i < strings.length; i++) {
             if (item.equals(strings[i])) return i;
@@ -26,7 +27,7 @@ public class Utilitaire {
         return -1;
     }
 
-    public static String getRandomStringFromArray(String[] array){
+    public static String getRandomStringFromArray(String[] array) {
         return array[random.nextInt(array.length)];
     }
 
