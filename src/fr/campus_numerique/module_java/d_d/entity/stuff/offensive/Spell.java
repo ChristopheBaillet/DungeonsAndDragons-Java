@@ -11,7 +11,6 @@ abstract public class Spell extends OffensiveStuff {
     public String toString(){
         return "Spell " + getName();
     }
-
     @Override
     public void interact(Personage character) {
         System.out.println(this);

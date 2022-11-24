@@ -5,8 +5,5 @@ public class LightningBolt extends Spell {
         super(name, power);
     }
 
-    @Override
-    public String toString(){
-        return "Lightning Bolt";
-    }
+
 }

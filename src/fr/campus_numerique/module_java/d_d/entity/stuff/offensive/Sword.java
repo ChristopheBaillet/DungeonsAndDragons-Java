@@ -5,8 +5,4 @@ public class Sword extends Weapon {
         super(name, power);
     }
 
-    @Override
-    public String toString(){
-        return "Sword";
-    }
 }

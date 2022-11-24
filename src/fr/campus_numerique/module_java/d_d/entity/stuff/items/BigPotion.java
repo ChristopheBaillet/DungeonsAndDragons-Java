@@ -5,8 +5,5 @@ public class BigPotion extends Potion{
         super(name ,power);
     }
 
-    @Override
-    public String toString(){
-        return "Big potion";
-    }
+
 }

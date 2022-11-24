@@ -5,8 +5,5 @@ public class Fireball extends Spell{
         super(name, power);
     }
 
-    @Override
-    public String toString(){
-        return "Fireball";
-    }
+
 }

@@ -17,4 +17,9 @@ abstract public class Item implements Case {
         this.name = name;
     }
 
+    @Override
+    public String toString(){
+        return getName();
+    }
+
 }

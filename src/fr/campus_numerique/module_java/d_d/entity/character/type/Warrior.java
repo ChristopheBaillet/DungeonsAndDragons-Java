@@ -17,7 +17,7 @@ public class Warrior extends Personage {
     }
     public Warrior(String name) {
         super(name, CharacterTypes.WARRIOR);
-        this.offensiveStuff = (OffensiveStuff) ItemsFactory.createItem(ItemsTypes.SWORD); //new Sword( 5);
+        this.offensiveStuff = (OffensiveStuff) ItemsFactory.createItem(ItemsTypes.SWORD);
         this.defensiveStuff = (DefensiveStuff) ItemsFactory.createItem(ItemsTypes.SHIELD);
     }
     @Override

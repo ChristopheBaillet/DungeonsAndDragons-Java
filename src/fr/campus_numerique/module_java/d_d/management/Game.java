@@ -6,10 +6,9 @@ import fr.campus_numerique.module_java.d_d.entity.character.CharacterTypes;
 import fr.campus_numerique.module_java.d_d.entity.character.CharactersFactory;
 import fr.campus_numerique.module_java.d_d.entity.character.Enemy;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
-import fr.campus_numerique.module_java.d_d.entity.character.type.Magician;
-import fr.campus_numerique.module_java.d_d.entity.character.type.Warrior;
 import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 import fr.campus_numerique.module_java.d_d.exception.CharacterOutsideOfBoardException;
+import fr.campus_numerique.module_java.d_d.exception.CharacterTypeException;
 
 import java.util.Random;
 
@@ -41,19 +40,28 @@ public class Game {
     }
 
     private Personage createCharacter() {
-        return defineCharacterClassWithName(defineName());
+        return defineCharacter(defineName());
     }
 
     private void exit() {
         gameStatus = GameStatus.QUIT_GAME;
     }
 
-    private Personage defineCharacterClassWithName(String name) {
+    private Personage defineCharacter(String name) {
         Personage character = null;
-        switch (menu.askClass()) {
-            case WARRIOR -> character = CharactersFactory.createCharacter(CharacterTypes.WARRIOR, name);
-            case MAGICIAN -> character = CharactersFactory.createCharacter(CharacterTypes.MAGICIAN, name);
-            case QUIT -> exit();
+        try {
+            switch (menu.askClass()) {
+                case WARRIOR -> {
+                    character = CharactersFactory.createCharacter(CharacterTypes.WARRIOR, name);
+                }
+                case MAGICIAN -> {
+                    character = CharactersFactory.createCharacter(CharacterTypes.MAGICIAN, name);
+                }
+                case QUIT -> exit();
+            }
+        }catch (CharacterTypeException e){
+            System.out.println(e);
+            return null;
         }
         return character;
     }
@@ -138,9 +146,10 @@ public class Game {
             }
         }
     }
+
     private Personage modify(Personage character) {
         switch (menu.modifyCharacter()) {
-            case CLASS -> character = defineCharacterClassWithName(character.getName());
+            case CLASS -> character = defineCharacter(character.getName());
             case NAME -> character.setName(defineName());
             case QUIT -> exit();
         }

@@ -8,10 +8,6 @@ public class Robe extends DefensiveStuff {
         super(name, power);
     }
 
-    @Override
-    public String toString(){
-        return "Robe " + getName();
-    }
 
     @Override
     public void interact(Personage character) {

@@ -10,10 +10,6 @@ public class Potion extends Item {
         super(name);
         this.power = power;
     }
-    @Override
-    public String toString(){
-        return "Potion";
-    }
 
     @Override
     public void interact(Personage character) {

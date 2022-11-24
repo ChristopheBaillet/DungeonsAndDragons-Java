@@ -4,8 +4,4 @@ public class Club extends Weapon{
     public Club(String name ,int power) {
         super(name ,power);
     }
-    @Override
-    public String toString(){
-        return "Club";
-    }
 }

@@ -7,10 +7,7 @@ public class Shield extends DefensiveStuff{
         super(name, power);
     }
 
-    @Override
-    public String toString(){
-        return "Shield " + getName();
-    }
+
 
     @Override
     public void interact(Personage character) {

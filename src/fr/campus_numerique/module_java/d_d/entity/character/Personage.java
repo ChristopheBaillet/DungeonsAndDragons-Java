@@ -14,7 +14,12 @@ abstract public class Personage {
         this(type.getName(), type);
     }
 
+    public CharacterTypes getType() {
+        return type;
+    }
+
     public Personage(String name, CharacterTypes type) {
+        this.type = type;
         this.name = name;
         this.maxHP = type.getHP();
         this.HP = maxHP;

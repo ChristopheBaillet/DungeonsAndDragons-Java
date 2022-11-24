@@ -1,6 +1,5 @@
 package fr.campus_numerique.module_java.d_d.entity.stuff;
 
-import fr.campus_numerique.module_java.d_d.entity.character.type.Robber;
 import fr.campus_numerique.module_java.d_d.entity.stuff.defensive.Robe;
 import fr.campus_numerique.module_java.d_d.entity.stuff.defensive.Shield;
 import fr.campus_numerique.module_java.d_d.entity.stuff.items.BigPotion;
@@ -17,7 +16,7 @@ public class ItemsFactory {
     }
 
     public static Item createCustomItem(ItemsTypes type, String name){
-        switch (type){
+        return switch (type){
             case CLUB -> new Club(name,34);
             case ROBE -> new Robe(name,1);
             case SWORD -> new Sword(name,1);
@@ -26,7 +25,6 @@ public class ItemsFactory {
             case FIREBALL -> new Fireball(name,1);
             case BIG_POTION -> new BigPotion(name,1);
             case LIGHTNING_BOLT -> new LightningBolt(name,1);
-        }
-        return null;
+        };
     }
 }

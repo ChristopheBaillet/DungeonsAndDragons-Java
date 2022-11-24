@@ -8,13 +8,6 @@ abstract public class DefensiveStuff extends Item {
         super(name);
         this.power = power;
     }
-    @Override
-    public String toString() {
-        return "DefensiveStuff{" +
-                "name='" + getName() + '\'' +
-                ", power=" + getPower() +
-                '}';
-    }
 
     public int getPower() {
         return power;
