@@ -29,7 +29,7 @@ public class Board {
     public Board() {
         this.nbCases = 64;
         for (int i = 1; i < nbCases + 1; i++) {
-            addEnemyToBoard(i);
+            addCaseToBoard(i);
         }
     }
 
@@ -56,7 +56,7 @@ public class Board {
         }
     }
 
-    private void addEnemyToBoard(int position) {
+    private void addCaseToBoard(int position) {
         try {
             switch (position) {
                 case 45, 52, 56, 62 -> this.boxes.add(CharactersFactory.createEnemy(CharacterTypes.DRAGON));
@@ -70,6 +70,7 @@ public class Board {
                 case 48, 49 -> this.boxes.add(ItemsFactory.createItem(ItemsTypes.FIREBALL));
                 case 7, 13, 31, 33, 39, 43 -> this.boxes.add(ItemsFactory.createItem(ItemsTypes.POTION));
                 case 28, 41 -> this.boxes.add(ItemsFactory.createItem(ItemsTypes.BIG_POTION));
+                default -> this.boxes.add(new EmptyCase());
             }
         } catch (CharacterTypeException e) {
             System.out.println(e);
