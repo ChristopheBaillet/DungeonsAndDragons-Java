@@ -27,4 +27,9 @@ abstract public class Item implements Case {
     public String display() {
         return Color.BLUE.toString() + this + Color.RESET;
     }
+
+    @Override
+    public boolean canInteract(){
+        return true;
+    }
 }

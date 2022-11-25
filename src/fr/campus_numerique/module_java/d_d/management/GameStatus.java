@@ -7,5 +7,6 @@ public enum GameStatus {
     CREATING_CHARACTER,
     UNINITIALIZED,
     MODIFY,
+    GAME_OVER;
 
 }

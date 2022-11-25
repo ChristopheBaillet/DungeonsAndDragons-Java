@@ -2,6 +2,7 @@ package fr.campus_numerique.module_java.d_d.entity.board;
 
 import fr.campus_numerique.module_java.d_d.entity.character.Enemy;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
+import fr.campus_numerique.module_java.d_d.utilitary.Color;
 
 public class EmptyCase implements Case {
     @Override
@@ -21,6 +22,11 @@ public class EmptyCase implements Case {
 
     @Override
     public String display() {
-        return " ";
+        return Color.YELLOW + "..." + Color.RESET;
+    }
+
+    @Override
+    public boolean canInteract(){
+        return true;
     }
 }

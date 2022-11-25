@@ -7,4 +7,5 @@ public interface Case {
 
     void delete();
     String display();
+    boolean canInteract();
 }

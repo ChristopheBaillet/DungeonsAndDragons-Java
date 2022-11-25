@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class Game {
     private final Random random = new Random();
-    private final Board board = new Board();
+    private final Board board = new Board(true);
     private final Menu menu = new Menu();
     private Personage character;
     private GameStatus gameStatus;
@@ -42,19 +42,14 @@ public class Game {
 
     private Personage defineCharacter(String name) {
         Personage character = null;
-        try {
-            switch (menu.askClass()) {
-                case WARRIOR -> {
-                    character = CharactersFactory.createCharacter(CharacterTypes.WARRIOR, name);
-                }
-                case MAGICIAN -> {
-                    character = CharactersFactory.createCharacter(CharacterTypes.MAGICIAN, name);
-                }
-                case QUIT -> exit();
+        switch (menu.askClass()) {
+            case WARRIOR -> {
+                character = CharactersFactory.createCharacter(CharacterTypes.WARRIOR, name);
             }
-        } catch (CharacterTypeException e) {
-            System.out.println(e);
-            return null;
+            case MAGICIAN -> {
+                character = CharactersFactory.createCharacter(CharacterTypes.MAGICIAN, name);
+            }
+            case QUIT -> exit();
         }
         return character;
     }
@@ -97,22 +92,25 @@ public class Game {
     }
 
     public void playATurn(Personage character) throws CharacterOutsideOfBoardException {
-        int[] roll = rollDices();
+//        int[] roll = rollDices();
         int playerPosition = board.getPlayerPosition();
         int maxPosition = board.getNbCases();
-        Case element = board.getBoxes().get(playerPosition);
-        playerPosition += roll[0] + roll[1];
+//        playerPosition += roll[0] + roll[1];
+        playerPosition++;
         board.acceptPlayerAt(playerPosition);
         if (playerPosition == maxPosition) {
             gameStatus = GameStatus.FINISHED;
             System.out.println("finished " + playerPosition);
         } else {
             board.setPlayerPosition(playerPosition);
-            switch (menu.askInteract(element)) {
-                case YES -> element.interact(character);
-                case NO -> {
-                }
+            Case element = board.getBoxes().get(playerPosition);
+            if (element.canInteract()){
+                element.interact(character);
             }
+           if(character.getHP() <= 0){
+               gameStatus = GameStatus.GAME_OVER;
+               menu.gameOver();
+           }
         }
     }
 

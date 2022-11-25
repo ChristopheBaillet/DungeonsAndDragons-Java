@@ -4,6 +4,7 @@ import fr.campus_numerique.module_java.d_d.entity.board.Case;
 import fr.campus_numerique.module_java.d_d.entity.character.Enemy;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
+import fr.campus_numerique.module_java.d_d.utilitary.Color;
 
 import java.util.Scanner;
 
@@ -33,7 +34,7 @@ public class Menu {
                     status = GameStatus.QUIT_GAME;
                 }
                 default -> userInput = UserChoice.WRONG_ANSWER;
-            };
+            }
         } while (userInput == UserChoice.WRONG_ANSWER);
         return status;
     }
@@ -178,5 +179,9 @@ public class Menu {
             };
         } while (userInput == UserChoice.WRONG_ANSWER);
         return userInput;
+    }
+
+    public void gameOver() {
+        System.out.println(Color.RED_BRIGHT + "Game Over !" + Color.RESET);
     }
 }

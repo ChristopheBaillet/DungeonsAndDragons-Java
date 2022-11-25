@@ -16,7 +16,10 @@ abstract public class Weapon extends OffensiveStuff {
     @Override
     public void interact(Personage character) {
         if (character instanceof Warrior){
+            System.out.println("Vous trouvez " + this + " et vous recevez un boost de " + getPower() + "points de dégats");
             character.setAttackPower(character.getAttackPower() + getPower());
+        }else {
+            System.out.println("Vous ne ramasser pas l'arme, vous êtes un Mage après tout, les armes c'est pour les gueux.");
         }
     }
 

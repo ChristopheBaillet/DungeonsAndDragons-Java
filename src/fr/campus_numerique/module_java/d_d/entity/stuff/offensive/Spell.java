@@ -15,7 +15,10 @@ abstract public class Spell extends OffensiveStuff {
     @Override
     public void interact(Personage character) {
         if (character instanceof Magician){
+            System.out.println("Vous trouvez " + this + " et vous recevez un boost de " + getPower() + "points de dégats");
             character.setAttackPower(getPower()+ character.getAttackPower());
+        }else {
+            System.out.println("Par la barbe de mes ancetres, mais c'est un bouquin, pourquoi je devrais le ramasser, les bouquins c'est pour les nerds");
         }
     }
 

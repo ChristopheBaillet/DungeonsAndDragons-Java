@@ -10,17 +10,11 @@ public enum CharacterTypes {
 
     private final int attackPower;
     private final int HP;
-    private String name;
-
+    private final String name;
     CharacterTypes(int attackPower, int HP, String name) {
         this.attackPower = attackPower;
         this.HP = HP;
         this.name = name;
-    }
-
-    CharacterTypes(int attackPower, int HP) {
-        this.attackPower = attackPower;
-        this.HP = HP;
     }
 
     public int getHP() {
