@@ -17,7 +17,7 @@ public class ItemsFactory {
 
     public static Item createCustomItem(ItemsTypes type, String name) {
         return switch (type) {
-            case CLUB -> new Club(name, 34);
+            case CLUB -> new Club(name, 1);
             case ROBE -> new Robe(name, 1);
             case SWORD -> new Sword(name, 1);
             case POTION -> new Potion(name, 1);
