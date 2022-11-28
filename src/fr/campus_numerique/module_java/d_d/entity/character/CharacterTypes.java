@@ -6,7 +6,7 @@ public enum CharacterTypes {
     GOBLIN(1, 6, "Goblin"),
     ROBBER(2, 8, "Robber"),
     MAGICIAN(15, 6, "Magician"),
-    WARRIOR(10, 10, "Warrior");
+    WARRIOR(2, 10, "Warrior");
 
     private final int attackPower;
     private final int HP;

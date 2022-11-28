@@ -2,6 +2,7 @@ package fr.campus_numerique.module_java.d_d.entity.board;
 
 import fr.campus_numerique.module_java.d_d.entity.character.CharacterTypes;
 import fr.campus_numerique.module_java.d_d.entity.character.CharactersFactory;
+import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 import fr.campus_numerique.module_java.d_d.entity.stuff.ItemsFactory;
 import fr.campus_numerique.module_java.d_d.entity.stuff.ItemsTypes;
 
@@ -36,7 +37,7 @@ public class Board {
 
     private void generateBoard() {
         for (int i = 0; i < nbCases + 1; i++) {
-            addCaseToBoard(i);
+            this.boxes.add(addCaseToBoard(i));
         }
     }
 
@@ -65,21 +66,19 @@ public class Board {
         }
     }
 
-    private void addCaseToBoard(int position) {
-        switch (position) {
-            case 45, 52, 56, 62 -> this.boxes.add(CharactersFactory.createEnemy(CharacterTypes.DRAGON));
-            case 10, 20, 25, 32, 35, 36, 37, 40, 44, 47 ->
-                    this.boxes.add(CharactersFactory.createEnemy(CharacterTypes.WIZARD));
-            case 3, 6, 9, 12, 15, 18, 21, 24, 27, 30 ->
-                    this.boxes.add(CharactersFactory.createEnemy(CharacterTypes.GOBLIN));
-            case 2, 11, 5, 22, 38 -> this.boxes.add(ItemsFactory.createItem(ItemsTypes.CLUB));
-            case 19, 26, 42, 53 -> this.boxes.add(ItemsFactory.createItem(ItemsTypes.SWORD));
-            case 1, 4, 8, 17, 23 -> this.boxes.add(ItemsFactory.createItem(ItemsTypes.LIGHTNING_BOLT));
-            case 48, 49 -> this.boxes.add(ItemsFactory.createItem(ItemsTypes.FIREBALL));
-            case 7, 13, 31, 33, 39, 43 -> this.boxes.add(ItemsFactory.createItem(ItemsTypes.POTION));
-            case 28, 41 -> this.boxes.add(ItemsFactory.createItem(ItemsTypes.BIG_POTION));
-            default -> this.boxes.add(new EmptyCase());
-        }
+    private Case addCaseToBoard(int position) {
+        return switch (position) {
+            case 45, 52, 56, 62 -> CharactersFactory.createEnemy(CharacterTypes.DRAGON);
+            case 10, 20, 25, 32, 35, 36, 37, 40, 44, 47 -> CharactersFactory.createEnemy(CharacterTypes.WIZARD);
+            case 3, 6, 9, 12, 15, 18, 21, 24, 27, 30 -> CharactersFactory.createEnemy(CharacterTypes.GOBLIN);
+            case 2, 11, 5, 22, 38 ->ItemsFactory.createItem(ItemsTypes.CLUB);
+            case 19, 26, 42, 53 ->ItemsFactory.createItem(ItemsTypes.SWORD);
+            case 1, 4, 8, 17, 23 -> ItemsFactory.createItem(ItemsTypes.LIGHTNING_BOLT);
+            case 48, 49 -> ItemsFactory.createItem(ItemsTypes.FIREBALL);
+            case 7, 13, 31, 33, 39, 43 -> ItemsFactory.createItem(ItemsTypes.POTION);
+            case 28, 41 -> ItemsFactory.createItem(ItemsTypes.BIG_POTION);
+            default -> new EmptyCase();
+        };
     }
     private void generateRandomBoard() {
         ArrayList<Integer> availableIndex = new ArrayList<>();
@@ -87,15 +86,12 @@ public class Board {
             availableIndex.add(i, i);
         }
         Random random = new Random();
-        addCaseToBoard(0);
+        this.boxes.add(addCaseToBoard(0));
         while (availableIndex.size() != 0){
             int randomIndex = random.nextInt(availableIndex.size());
-            addCaseToBoard(randomIndex);
+            this.boxes.add(addCaseToBoard(randomIndex));
             availableIndex.remove(randomIndex);
         }
-        System.out.println(this.boxes);
-//        generateBoard();
-//        Collections.shuffle(this.boxes);
     }
 
     public GameStatus getStatus() {

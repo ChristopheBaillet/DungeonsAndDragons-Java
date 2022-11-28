@@ -16,5 +16,6 @@ public enum UserChoice {
     PLAY_AGAIN,
     HELP,
     WRONG_ANSWER,
-    CREATE_CHARACTER;
+    CREATE_CHARACTER,
+    FIGHT, FLEE;
 }

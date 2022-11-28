@@ -2,14 +2,12 @@ package fr.campus_numerique.module_java.d_d.management;
 
 import fr.campus_numerique.module_java.d_d.entity.board.Board;
 import fr.campus_numerique.module_java.d_d.entity.board.Case;
-import fr.campus_numerique.module_java.d_d.entity.board.EmptyCase;
 import fr.campus_numerique.module_java.d_d.entity.character.CharacterTypes;
 import fr.campus_numerique.module_java.d_d.entity.character.CharactersFactory;
 import fr.campus_numerique.module_java.d_d.entity.character.Enemy;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 import fr.campus_numerique.module_java.d_d.exception.CharacterOutsideOfBoardException;
-import fr.campus_numerique.module_java.d_d.exception.CharacterTypeException;
 
 import java.util.Random;
 
@@ -85,42 +83,72 @@ public class Game {
         }
     }
 
-    private int[] rollDices() {
-        int dice1 = random.nextInt(1, 6);
-        int dice2 = random.nextInt(1, 6);
-        return new int[]{dice1, dice2};
-    }
 
     public void playATurn(Personage character) throws CharacterOutsideOfBoardException {
-//        int[] roll = rollDices();
         int playerPosition = board.getPlayerPosition();
         int maxPosition = board.getNbCases();
-//        playerPosition += roll[0] + roll[1];
-        playerPosition++;
-        board.acceptPlayerAt(playerPosition);
+        playerPosition = moveForward(random.nextInt(1, 6), playerPosition);
         if (playerPosition == maxPosition) {
             gameStatus = GameStatus.FINISHED;
             System.out.println("finished " + playerPosition);
         } else {
             board.setPlayerPosition(playerPosition);
             Case element = board.getBoxes().get(playerPosition);
-            if (element.canInteract()){
-                element.interact(character);
+            CaseType elmt = element instanceof Item ? CaseType.ITEM : element instanceof Enemy ? CaseType.ENEMY : CaseType.EMPTY;
+            if (element.canInteract()) {
+                switch (elmt) {
+                    case EMPTY -> {
+                        element.interact(character);
+                    }
+                    case ENEMY -> {
+                        board.display();
+                        UserChoice userChoice = null;
+                        Enemy enemy = (Enemy) element;
+                        System.out.println("Vous vous retrouver face à face avec un " + enemy.getName());
+                        do {
+                            switch (menu.askFightOrFlee(enemy)) {
+                                case FIGHT -> {
+                                    element.interact(character);
+                                    userChoice = UserChoice.FIGHT;
+                                }
+                                case FLEE -> {
+                                    userChoice = UserChoice.FLEE;
+                                    moveBackward(playerPosition, random.nextInt(1,6));
+                                    System.out.println(board.getPlayerPosition()+ " " + playerPosition);
+                                }
+                            }
+                        }while (userChoice == UserChoice.FIGHT && !enemy.fightIsFinished(character));
+                    }
+                    case ITEM -> {
+                        switch (menu.askTakeItem((Item) element)) {
+                            case YES -> element.interact(character);
+                            case NO -> {
+                            }
+                        }
+                    }
+                }
             }
-           if(character.getHP() <= 0){
-               gameStatus = GameStatus.GAME_OVER;
-               menu.gameOver();
-           }
+            if (character.getHP() <= 0) {
+                gameStatus = GameStatus.GAME_OVER;
+                menu.gameOver();
+            }
         }
     }
 
-
-    private void moveCharacterForward(Personage character, int number) {
-
+    private int moveForward(int number, int position) throws CharacterOutsideOfBoardException {
+        int newPosition = position + number;
+        board.acceptPlayerAt(newPosition);
+        board.setPlayerPosition(newPosition);
+        return newPosition;
     }
 
-    private void moveCharacterBackward(Personage Character, int number) {
-
+    private void moveBackward(int position, int number) throws CharacterOutsideOfBoardException {
+        int newPosition = position - number;
+        if (newPosition < 0){
+            newPosition = 0;
+        }
+        board.acceptPlayerAt(newPosition);
+        board.setPlayerPosition(newPosition);
     }
 
     private Personage modify(Personage character) {

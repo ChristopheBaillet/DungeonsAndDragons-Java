@@ -6,7 +6,7 @@ import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.OffensiveStuff
 abstract public class Personage {
     protected String name;
 
-    private CharacterTypes type;
+    private final CharacterTypes type;
     protected int HP, attackPower, maxHP;
     protected OffensiveStuff offensiveStuff;
     protected DefensiveStuff defensiveStuff;
@@ -89,6 +89,4 @@ abstract public class Personage {
     public void setMaxHP(int maxHP) {
         this.maxHP = maxHP;
     }
-
-
 }

@@ -17,13 +17,13 @@ public class Menu {
         String message = character != null ? "[1] Create character | [2] Start Game | [3] Modify | [q] Quit" : "[1] Create character | [q] Quit";
         do {
             switch (askQuestion(message)) {
-                case "1" ->{
+                case "1" -> {
                     userInput = UserChoice.CREATE_CHARACTER;
                     status = GameStatus.CREATING_CHARACTER;
                 }
                 case "2" -> {
                     userInput = character != null ? UserChoice.PLAY : UserChoice.WRONG_ANSWER;
-                    status = userInput != UserChoice.WRONG_ANSWER ? GameStatus.ON_GOING: GameStatus.UNINITIALIZED;
+                    status = userInput != UserChoice.WRONG_ANSWER ? GameStatus.ON_GOING : GameStatus.UNINITIALIZED;
                 }
                 case "3" -> {
                     userInput = character != null ? UserChoice.MODIFY : UserChoice.WRONG_ANSWER;
@@ -103,38 +103,6 @@ public class Menu {
         return userInput;
     }
 
-    public UserChoice askToStartGame() {
-        UserChoice userInput;
-        do {
-            if (askQuestion("Press enter to start the game.").equals("")) {
-                userInput = UserChoice.CONTINUE;
-            } else {
-                userInput = UserChoice.WRONG_ANSWER;
-            }
-        } while (userInput == UserChoice.WRONG_ANSWER);
-        return userInput;
-    }
-
-    public UserChoice askInteract(Case element){
-        if (element instanceof Item){
-            return askInteractWithItem(element);
-        }else {
-            return askInteractWithEnemy(element);
-        }
-    }
-
-    public UserChoice askInteractWithItem(Case box) {
-        UserChoice userInput;
-        do {
-            userInput = switch (askQuestion("Do you want to take this " + box + " ? [y] Yes | [n] No")) {
-                case "y" -> UserChoice.YES;
-                case "n" -> UserChoice.NO;
-                default -> UserChoice.WRONG_ANSWER;
-            };
-        } while (userInput == UserChoice.WRONG_ANSWER);
-        return userInput;
-    }
-
     public UserChoice inGame() {
         UserChoice userInput;
         do {
@@ -157,31 +125,41 @@ public class Menu {
         System.out.println("Type help to get this list");
     }
 
-    public UserChoice askInteractWithEnemy(Case box) {
-        UserChoice userInput;
-        do {
-            userInput = switch (askQuestion("this is a " + box + "\nDo you want to fight it?")) {
-                case "y" -> UserChoice.YES;
-                case "n" -> UserChoice.NO;
-                default -> UserChoice.WRONG_ANSWER;
-            };
-        } while (userInput == UserChoice.WRONG_ANSWER);
-        return userInput;
-    }
-
-    public UserChoice askCharacterMove(){
-        UserChoice userInput;
-        do {
-            userInput = switch (askQuestion("[f] Move forward | [b] Move backward")) {
-                case "y" -> UserChoice.YES;
-                case "n" -> UserChoice.NO;
-                default -> UserChoice.WRONG_ANSWER;
-            };
-        } while (userInput == UserChoice.WRONG_ANSWER);
-        return userInput;
-    }
-
     public void gameOver() {
-        System.out.println(Color.RED_BRIGHT + "Game Over !" + Color.RESET);
+        System.out.println(Color.RED_BOLD_BRIGHT + "                                                                                                                                                                         \n" +
+                "                                                                                                                                                                         \n" +
+                "        GGGGGGGGGGGGG                                                                        OOOOOOOOO                                                                   \n" +
+                "     GGG::::::::::::G                                                                      OO:::::::::OO                                                                 \n" +
+                "   GG:::::::::::::::G                                                                    OO:::::::::::::OO                                                               \n" +
+                "  G:::::GGGGGGGG::::G                                                                   O:::::::OOO:::::::O                                                              \n" +
+                " G:::::G       GGGGGG  aaaaaaaaaaaaa      mmmmmmm    mmmmmmm       eeeeeeeeeeee         O::::::O   O::::::Ovvvvvvv           vvvvvvv eeeeeeeeeeee    rrrrr   rrrrrrrrr   \n" +
+                "G:::::G                a::::::::::::a   mm:::::::m  m:::::::mm   ee::::::::::::ee       O:::::O     O:::::O v:::::v         v:::::vee::::::::::::ee  r::::rrr:::::::::r  \n" +
+                "G:::::G                aaaaaaaaa:::::a m::::::::::mm::::::::::m e::::::eeeee:::::ee     O:::::O     O:::::O  v:::::v       v:::::ve::::::eeeee:::::eer:::::::::::::::::r \n" +
+                "G:::::G    GGGGGGGGGG           a::::a m::::::::::::::::::::::me::::::e     e:::::e     O:::::O     O:::::O   v:::::v     v:::::ve::::::e     e:::::err::::::rrrrr::::::r\n" +
+                "G:::::G    G::::::::G    aaaaaaa:::::a m:::::mmm::::::mmm:::::me:::::::eeeee::::::e     O:::::O     O:::::O    v:::::v   v:::::v e:::::::eeeee::::::e r:::::r     r:::::r\n" +
+                "G:::::G    GGGGG::::G  aa::::::::::::a m::::m   m::::m   m::::me:::::::::::::::::e      O:::::O     O:::::O     v:::::v v:::::v  e:::::::::::::::::e  r:::::r     rrrrrrr\n" +
+                "G:::::G        G::::G a::::aaaa::::::a m::::m   m::::m   m::::me::::::eeeeeeeeeee       O:::::O     O:::::O      v:::::v:::::v   e::::::eeeeeeeeeee   r:::::r            \n" +
+                " G:::::G       G::::Ga::::a    a:::::a m::::m   m::::m   m::::me:::::::e                O::::::O   O::::::O       v:::::::::v    e:::::::e            r:::::r            \n" +
+                "  G:::::GGGGGGGG::::Ga::::a    a:::::a m::::m   m::::m   m::::me::::::::e               O:::::::OOO:::::::O        v:::::::v     e::::::::e           r:::::r            \n" +
+                "   GG:::::::::::::::Ga:::::aaaa::::::a m::::m   m::::m   m::::m e::::::::eeeeeeee        OO:::::::::::::OO          v:::::v       e::::::::eeeeeeee   r:::::r            \n" +
+                "     GGG::::::GGG:::G a::::::::::aa:::am::::m   m::::m   m::::m  ee:::::::::::::e          OO:::::::::OO             v:::v         ee:::::::::::::e   r:::::r            \n" +
+                "        GGGGGG   GGGG  aaaaaaaaaa  aaaammmmmm   mmmmmm   mmmmmm    eeeeeeeeeeeeee            OOOOOOOOO                vvv            eeeeeeeeeeeeee   rrrrrrr            \n" +
+                "                                                                                                                                                                         " + Color.RESET);
+    }
+
+    public UserChoice askFightOrFlee(Enemy enemy) {
+        UserChoice userInput;
+        do {
+            userInput = switch (askQuestion("[1] Fight | [2] Flee")) {
+                case "1" -> UserChoice.FIGHT;
+                case "2" -> UserChoice.FLEE;
+                default -> UserChoice.WRONG_ANSWER;
+            };
+        }while (userInput == UserChoice.WRONG_ANSWER);
+        return userInput;
+    }
+
+    public UserChoice askTakeItem(Item item) {
+        return UserChoice.YES;
     }
 }
