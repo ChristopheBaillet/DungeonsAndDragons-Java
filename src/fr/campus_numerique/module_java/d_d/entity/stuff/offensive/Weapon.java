@@ -1,5 +1,6 @@
 package fr.campus_numerique.module_java.d_d.entity.stuff.offensive;
 
+import fr.campus_numerique.module_java.d_d.entity.character.Hero;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 import fr.campus_numerique.module_java.d_d.entity.character.type.Warrior;
 
@@ -14,7 +15,7 @@ abstract public class Weapon extends OffensiveStuff {
     }
 
     @Override
-    public void interact(Personage character) {
+    public void interact(Hero character) {
         if (character instanceof Warrior){
             System.out.println("Vous trouvez " + this + " et vous recevez un boost de " + getPower() + "points de dégats");
             character.setAttackPower(character.getAttackPower() + getPower());

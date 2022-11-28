@@ -2,10 +2,7 @@ package fr.campus_numerique.module_java.d_d.management;
 
 import fr.campus_numerique.module_java.d_d.entity.board.Board;
 import fr.campus_numerique.module_java.d_d.entity.board.Case;
-import fr.campus_numerique.module_java.d_d.entity.character.CharacterTypes;
-import fr.campus_numerique.module_java.d_d.entity.character.CharactersFactory;
-import fr.campus_numerique.module_java.d_d.entity.character.Enemy;
-import fr.campus_numerique.module_java.d_d.entity.character.Personage;
+import fr.campus_numerique.module_java.d_d.entity.character.*;
 import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 import fr.campus_numerique.module_java.d_d.exception.CharacterOutsideOfBoardException;
 
@@ -16,7 +13,7 @@ public class Game {
     private final Random random = new Random();
     private final Board board = new Board(true);
     private final Menu menu = new Menu();
-    private Personage character;
+    private Hero character;
     private GameStatus gameStatus;
 
     public Game() {
@@ -30,7 +27,7 @@ public class Game {
         } while (gameStatus != GameStatus.QUIT_GAME);
     }
 
-    private Personage createCharacter() {
+    private Hero createCharacter() {
         return defineCharacter(defineName());
     }
 
@@ -38,14 +35,14 @@ public class Game {
         gameStatus = GameStatus.QUIT_GAME;
     }
 
-    private Personage defineCharacter(String name) {
-        Personage character = null;
+    private Hero defineCharacter(String name) {
+        Hero character = null;
         switch (menu.askClass()) {
             case WARRIOR -> {
-                character = CharactersFactory.createCharacter(CharacterTypes.WARRIOR, name);
+                character = CharactersFactory.createCharacter(HeroTypes.WARRIOR, name);
             }
             case MAGICIAN -> {
-                character = CharactersFactory.createCharacter(CharacterTypes.MAGICIAN, name);
+                character = CharactersFactory.createCharacter(HeroTypes.MAGICIAN, name);
             }
             case QUIT -> exit();
         }
@@ -64,7 +61,7 @@ public class Game {
     }
 
     private void playGame() {
-        board.initialize();
+        board.initialize(character);
         while (gameStatus == GameStatus.ON_GOING) {
             board.display();
             switch (menu.inGame()) {
@@ -84,7 +81,7 @@ public class Game {
     }
 
 
-    public void playATurn(Personage character) throws CharacterOutsideOfBoardException {
+    public void playATurn(Hero character) throws CharacterOutsideOfBoardException {
         int playerPosition = board.getPlayerPosition();
         int maxPosition = board.getNbCases();
         playerPosition = moveForward(random.nextInt(1, 6), playerPosition);
@@ -94,7 +91,7 @@ public class Game {
         } else {
             board.setPlayerPosition(playerPosition);
             Case element = board.getBoxes().get(playerPosition);
-            CaseType elmt = element instanceof Item ? CaseType.ITEM : element instanceof Enemy ? CaseType.ENEMY : CaseType.EMPTY;
+            CaseTypes elmt = element instanceof Item ? CaseTypes.ITEM : element instanceof Enemy ? CaseTypes.ENEMY : CaseTypes.EMPTY;
             if (element.canInteract()) {
                 switch (elmt) {
                     case EMPTY -> {
@@ -151,7 +148,7 @@ public class Game {
         board.setPlayerPosition(newPosition);
     }
 
-    private Personage modify(Personage character) {
+    private Hero modify(Hero character) {
         switch (menu.modifyCharacter()) {
             case CLASS -> character = defineCharacter(character.getName());
             case NAME -> character.setName(defineName());
@@ -160,7 +157,7 @@ public class Game {
         return character;
     }
 
-    private Personage validateCharacter(Personage character) {
+    private Hero validateCharacter(Hero character) {
         menu.showCharacterNameAndClass(character);
         switch (menu.askValidationOfCharacter()) {
             case VALIDATE -> {

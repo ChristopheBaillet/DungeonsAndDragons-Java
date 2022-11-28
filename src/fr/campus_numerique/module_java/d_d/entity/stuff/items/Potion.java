@@ -1,6 +1,7 @@
 package fr.campus_numerique.module_java.d_d.entity.stuff.items;
 
 import fr.campus_numerique.module_java.d_d.entity.board.Case;
+import fr.campus_numerique.module_java.d_d.entity.character.Hero;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 
@@ -13,7 +14,7 @@ public class Potion extends Item {
     }
 
     @Override
-    public void interact(Personage character) {
+    public void interact(Hero character) {
         character.setHP(character.getHP() + power);
     }
 

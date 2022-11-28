@@ -1,5 +1,5 @@
 package fr.campus_numerique.module_java.d_d.management;
 
-public enum CaseType {
+public enum CaseTypes {
     EMPTY,ENEMY,ITEM;
 }

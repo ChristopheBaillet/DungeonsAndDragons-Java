@@ -4,12 +4,17 @@ import fr.campus_numerique.module_java.d_d.entity.board.Case;
 import fr.campus_numerique.module_java.d_d.utilitary.Color;
 
 abstract public class Enemy extends Personage implements Case {
-    public Enemy(CharacterTypes type) {
-        super(type);
+    protected EnemyTypes type;
+    public Enemy(EnemyTypes type) {
+        super(type.getName());
+        this.type = type;
+        this.maxHP = type.getHP();
+        this.HP = maxHP;
+        this.attackPower = type.getAttackPower();
     }
 
     @Override
-    public void interact(Personage character) {
+    public void interact(Hero character) {
         int attack = character.getAttackPower() + character.getOffensiveStuff().getPower();
         System.out.println("Vous avez infligé " + Color.GREEN + attack + Color.RESET + " points de dégats avec votre " + character.getOffensiveStuff() + ".");
         this.setHP(this.HP - attack);
