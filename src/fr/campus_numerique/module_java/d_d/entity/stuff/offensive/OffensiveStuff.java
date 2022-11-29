@@ -10,13 +10,6 @@ abstract public class OffensiveStuff extends Item {
         this.power = power;
     }
 
-    @Override
-    public String toString() {
-        return "OffensiveStuff{" +
-                "name='" + getName() + '\'' +
-                ", power=" + getPower() +
-                '}';
-    }
 
     public int getPower() {
         return power;

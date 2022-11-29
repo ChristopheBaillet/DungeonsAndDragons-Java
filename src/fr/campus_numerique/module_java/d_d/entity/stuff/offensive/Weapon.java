@@ -9,10 +9,6 @@ abstract public class Weapon extends OffensiveStuff {
         super(name, power);
     }
 
-    @Override
-    public String toString() {
-        return "Weapon " + getName();
-    }
 
     @Override
     public void interact(Hero character) {

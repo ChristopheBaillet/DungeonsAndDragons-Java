@@ -10,10 +10,6 @@ abstract public class Spell extends OffensiveStuff {
     }
 
     @Override
-    public String toString() {
-        return "Spell " + getName();
-    }
-    @Override
     public void interact(Hero character) {
         if (character instanceof Magician){
             System.out.println("Vous trouvez " + this + " et vous recevez un boost de " + getPower() + "points de dégats");

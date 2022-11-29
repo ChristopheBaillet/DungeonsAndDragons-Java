@@ -8,17 +8,11 @@ import fr.campus_numerique.module_java.d_d.entity.stuff.defensive.DefensiveStuff
 import fr.campus_numerique.module_java.d_d.entity.stuff.offensive.OffensiveStuff;
 
 public class Magician extends Hero {
-
-    public Magician() {
-        this("Roberto");
-    }
-
     public Magician(String name) {
         super(name, HeroTypes.MAGICIAN);
         this.offensiveStuff = (OffensiveStuff) ItemsFactory.createItem(ItemsTypes.FIREBALL);
         this.defensiveStuff = (DefensiveStuff) ItemsFactory.createItem(ItemsTypes.ROBE);
     }
-
     @Override
     public String toString() {
         return "Magician " + this.name;

@@ -1,13 +1,13 @@
 package fr.campus_numerique.module_java.d_d.entity.stuff;
 
 public enum ItemsTypes {
-    SWORD("épée de débutant"),
-    SHIELD("bouclier de débutant"),
+    SWORD("epee de debutant"),
+    SHIELD("bouclier de debutant"),
     POTION("petite potion"),
     FIREBALL("petite boule de feu"),
     CLUB("petite massue"),
-    LIGHTNING_BOLT("petit éclair"),
-    BIG_POTION("potion supérieure"),
+    LIGHTNING_BOLT("petit eclair"),
+    BIG_POTION("potion superieure"),
     ROBE("robe de novice");
 
     private final String name;
