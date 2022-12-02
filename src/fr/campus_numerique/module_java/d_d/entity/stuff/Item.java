@@ -6,8 +6,10 @@ import fr.campus_numerique.module_java.d_d.utilitary.Color;
 abstract public class Item implements Case {
     private String name;
 
-    public Item(String name) {
+    ItemsTypes type;
+    public Item(String name, ItemsTypes type) {
         this.name = name;
+        this.type = type;
     }
 
     public String getName() {
@@ -31,5 +33,8 @@ abstract public class Item implements Case {
     @Override
     public boolean canInteract(){
         return true;
+    }
+    public ItemsTypes getType() {
+        return type;
     }
 }

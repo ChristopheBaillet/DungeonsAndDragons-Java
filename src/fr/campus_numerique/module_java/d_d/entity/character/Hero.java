@@ -16,11 +16,13 @@ abstract public class Hero extends Personage{
         this.attackPower = type.getAttackPower();
     }
 
-    public Hero(String name, OffensiveStuff offensiveStuff, DefensiveStuff defensiveStuff, HeroTypes type) {
+    public Hero(String name, int hp, int attackPower, OffensiveStuff offensiveStuff, DefensiveStuff defensiveStuff, HeroTypes type) {
         super(name);
+        this.type = type;
+        this.HP = hp;
+        this.attackPower = attackPower;
         this.offensiveStuff = offensiveStuff;
         this.defensiveStuff = defensiveStuff;
-        this.type = type;
     }
 
     public void levelUp() {

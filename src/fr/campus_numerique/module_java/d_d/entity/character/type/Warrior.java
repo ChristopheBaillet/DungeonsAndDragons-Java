@@ -19,6 +19,10 @@ public class Warrior extends Hero {
         this.defensiveStuff = (DefensiveStuff) ItemsFactory.createItem(ItemsTypes.SHIELD);
     }
 
+    public Warrior(String name, int hp, int attackPower, OffensiveStuff offensiveStuff, DefensiveStuff defensiveStuff) {
+        super(name, hp, attackPower, offensiveStuff,defensiveStuff, HeroTypes.WARRIOR);
+    }
+
     @Override
     public String toString() {
         return "Warrior " + this.name;

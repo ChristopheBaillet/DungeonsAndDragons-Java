@@ -8,13 +8,15 @@ import fr.campus_numerique.module_java.d_d.entity.stuff.ItemsTypes;
 
 import fr.campus_numerique.module_java.d_d.exception.CharacterOutsideOfBoardException;
 import fr.campus_numerique.module_java.d_d.management.GameStatus;
+import fr.campus_numerique.module_java.d_d.stats.InteractionListenable;
+import fr.campus_numerique.module_java.d_d.stats.InteractionListener;
 import fr.campus_numerique.module_java.d_d.utilitary.Color;
 
 import java.util.*;
 
-public class Board {
+public class Board implements InteractionListenable {
     private int playerPosition;
-    private final int nbCases = 64;
+    private final int nbCases;
     private GameStatus status;
     private final ArrayList<Case> boxes = new ArrayList<>();
 
@@ -33,12 +35,18 @@ public class Board {
         }else {
             generateBoard();
         }
+        nbCases = this.boxes.size();
     }
 
     private void generateBoard() {
-        for (int i = 0; i < nbCases + 1; i++) {
-            this.boxes.add(addCaseToBoard(i));
+        for (CaseTypes casee: CaseTypes.values()) {
+            for (int i = 0 ; i < casee.getNumber(); i++){
+                this.boxes.add(CaseFactory.createCaseForBoard(casee));
+            }
         }
+//        for (int i = 0; i < nbCases + 1; i++) {
+//            this.boxes.add(addCaseToBoard(i));
+//        }
     }
 
     public void display() {
@@ -65,6 +73,7 @@ public class Board {
         if (pos >= nbCases || pos < 0) {
             throw new CharacterOutsideOfBoardException();
         }
+
     }
 
     private Case addCaseToBoard(int position) {
@@ -76,23 +85,25 @@ public class Board {
             case 19, 26, 42, 53 ->ItemsFactory.createItem(ItemsTypes.SWORD);
             case 1, 4, 8, 17, 23 -> ItemsFactory.createItem(ItemsTypes.LIGHTNING_BOLT);
             case 48, 49 -> ItemsFactory.createItem(ItemsTypes.FIREBALL);
-            case 7, 13, 31, 33, 39, 43 -> ItemsFactory.createItem(ItemsTypes.POTION);
+            case 7, 13, 31, 33, 39, 43 -> ItemsFactory.createItem(ItemsTypes.SMALL_POTION);
             case 28, 41 -> ItemsFactory.createItem(ItemsTypes.BIG_POTION);
             default -> new EmptyCase();
         };
     }
     private void generateRandomBoard() {
-        ArrayList<Integer> availableIndex = new ArrayList<>();
-        for (int i = 0; i< nbCases; i++){
-            availableIndex.add(i, i);
-        }
-        Random random = new Random();
-        this.boxes.add(addCaseToBoard(0));
-        while (availableIndex.size() != 0){
-            int randomIndex = random.nextInt(availableIndex.size());
-            this.boxes.add(addCaseToBoard(randomIndex));
-            availableIndex.remove(randomIndex);
-        }
+        generateBoard();
+        Collections.shuffle(this.boxes);
+//        ArrayList<Integer> availableIndex = new ArrayList<>();
+//        for (int i = 0; i< nbCases; i++){
+//            availableIndex.add(i, i);
+//        }
+//        Random random = new Random();
+//        this.boxes.add(addCaseToBoard(0));
+//        while (availableIndex.size() != 0){
+//            int randomIndex = random.nextInt(availableIndex.size());
+//            this.boxes.add(addCaseToBoard(randomIndex));
+//            availableIndex.remove(randomIndex);
+//        }
     }
 
     public GameStatus getStatus() {
@@ -117,5 +128,15 @@ public class Board {
 
     public void setPlayerPosition(int playerPosition) {
         this.playerPosition = playerPosition;
+    }
+
+    @Override
+    public void addInteractionListener(InteractionListener interactionListener) {
+
+    }
+
+    @Override
+    public void removeInteractionListener(InteractionListener interactionListener) {
+
     }
 }

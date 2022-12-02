@@ -1,21 +1,31 @@
 package fr.campus_numerique.module_java.d_d.entity.stuff;
 
 public enum ItemsTypes {
-    SWORD("epee de debutant"),
-    SHIELD("bouclier de debutant"),
-    POTION("petite potion"),
-    FIREBALL("petite boule de feu"),
-    CLUB("petite massue"),
-    LIGHTNING_BOLT("petit eclair"),
-    BIG_POTION("potion superieure"),
-    ROBE("robe de novice");
+    SWORD("sword",1),
+    SHIELD("shield",1),
+    SMALL_POTION("small_potion",1),
+    FIREBALL("fireball",1),
+    CLUB("club",1),
+    LIGHTNING_BOLT("lightning_bolt",1),
+    BIG_POTION("big_potion",3),
+    ROBE("robe",1);
 
     private final String name;
-    ItemsTypes(String name) {
+
+    private final int power;
+
+
+
+    ItemsTypes(String name, int power) {
         this.name = name;
+        this.power = power;
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public int getPower() {
+        return power;
     }
 }

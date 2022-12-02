@@ -13,6 +13,11 @@ public class Magician extends Hero {
         this.offensiveStuff = (OffensiveStuff) ItemsFactory.createItem(ItemsTypes.FIREBALL);
         this.defensiveStuff = (DefensiveStuff) ItemsFactory.createItem(ItemsTypes.ROBE);
     }
+
+    public Magician(String name, int hp, int attackPower, OffensiveStuff offensiveStuff, DefensiveStuff defensiveStuff) {
+        super(name, hp, attackPower,offensiveStuff, defensiveStuff, HeroTypes.MAGICIAN);
+    }
+
     @Override
     public String toString() {
         return "Magician " + this.name;

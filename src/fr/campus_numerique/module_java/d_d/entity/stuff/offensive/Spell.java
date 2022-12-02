@@ -1,12 +1,12 @@
 package fr.campus_numerique.module_java.d_d.entity.stuff.offensive;
 
 import fr.campus_numerique.module_java.d_d.entity.character.Hero;
-import fr.campus_numerique.module_java.d_d.entity.character.Personage;
 import fr.campus_numerique.module_java.d_d.entity.character.type.Magician;
+import fr.campus_numerique.module_java.d_d.entity.stuff.ItemsTypes;
 
 abstract public class Spell extends OffensiveStuff {
-    public Spell(String name,int power) {
-        super(name, power);
+    public Spell(String name, ItemsTypes type) {
+        super(name, type);
     }
 
     @Override

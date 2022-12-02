@@ -1,31 +1,56 @@
 package fr.campus_numerique.module_java.d_d.management;
 
-import fr.campus_numerique.module_java.d_d.entity.board.Case;
 import fr.campus_numerique.module_java.d_d.entity.character.Enemy;
+import fr.campus_numerique.module_java.d_d.entity.character.Hero;
 import fr.campus_numerique.module_java.d_d.entity.character.Personage;
+import fr.campus_numerique.module_java.d_d.entity.character.type.Warrior;
 import fr.campus_numerique.module_java.d_d.entity.stuff.Item;
 import fr.campus_numerique.module_java.d_d.utilitary.Color;
 
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
-public class Menu {
+public class Menu implements MenuListenable {
+    private final ArrayList<MenuListener> observers = new ArrayList<>();
     private final Scanner scanner = new Scanner(System.in);
+    private static Menu INSTANCE = null;
+
+    public synchronized static Menu getInstance() {
+        if (INSTANCE == null){
+            INSTANCE = new Menu();
+        }
+        return INSTANCE;
+    }
+
+    private Menu(){
+
+    }
 
     public GameStatus main(Personage character) {
         UserChoice userInput;
         GameStatus status = null;
-        String message = character != null ? "[1] Create character | [2] Start Game | [3] Modify | [q] Quit" : "[1] Create character | [q] Quit";
+        String message = character != null ? "[1] Create character | [2] Load Character |[3] Start Game | [4] Modify | [q] Quit"
+                : "[1] Create character | [2] Load character |[q] Quit";
+        String characterInfos = character != null ? "Your character is : "+character : "";
         do {
+            if (!characterInfos.equals("")){
+                System.out.println(characterInfos);
+            }
             switch (askQuestion(message)) {
                 case "1" -> {
                     userInput = UserChoice.CREATE_CHARACTER;
                     status = GameStatus.CREATING_CHARACTER;
                 }
                 case "2" -> {
+                    userInput = UserChoice.LOAD_CHARACTER;
+                    status = GameStatus.LOAD_CHARACTER;
+                }
+                case "3" -> {
                     userInput = character != null ? UserChoice.PLAY : UserChoice.WRONG_ANSWER;
                     status = userInput != UserChoice.WRONG_ANSWER ? GameStatus.ON_GOING : GameStatus.UNINITIALIZED;
                 }
-                case "3" -> {
+                case "4" -> {
                     userInput = character != null ? UserChoice.MODIFY : UserChoice.WRONG_ANSWER;
                     status = userInput != UserChoice.WRONG_ANSWER ? GameStatus.MODIFY : GameStatus.UNINITIALIZED;
                 }
@@ -114,6 +139,9 @@ public class Menu {
                 default -> UserChoice.WRONG_ANSWER;
             };
         } while (userInput == UserChoice.WRONG_ANSWER);
+        if(userInput == UserChoice.QUIT){
+            notifyOnQuitAsked();
+        }
         return userInput;
     }
 
@@ -161,5 +189,39 @@ public class Menu {
 
     public UserChoice askTakeItem(Item item) {
         return UserChoice.YES;
+    }
+
+    @Override
+    public void addMenuObserver(MenuListener menuObserver) {
+        if (menuObserver != null && !observers.contains(menuObserver)){
+            observers.add(menuObserver);
+        }
+    }
+
+    @Override
+    public void removeMenuObserver(MenuListener menuObserver) {
+        observers.remove(menuObserver);
+    }
+
+    private void notifyOnQuitAsked(){
+        for (MenuListener observer : observers) {
+            observer.onQuitAsked();
+        }
+    }
+
+    public Integer chooseCharacter(Map<Integer, Hero> result) {
+        String message = "";
+        ArrayList <Integer> availableIndex = new ArrayList<>();
+        for (Map.Entry<Integer,Hero> entry : result.entrySet()){
+            availableIndex.add(entry.getKey());
+            message += "Press ["+ entry.getKey()+"] to select " + entry.getValue() + "\n";
+        }
+        String userChoice = "";
+        Integer index;
+        do {
+            userChoice = askQuestion(message);
+            index = Integer.parseInt(userChoice);
+        }while (!availableIndex.contains(index));
+        return index;
     }
 }
